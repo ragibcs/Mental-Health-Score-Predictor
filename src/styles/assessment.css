@@ -1,0 +1,682 @@
+/* ==========================================================================
+   Calm Ground - Assessment Styles
+   Tactile, spacious, human controls with soft daylight aesthetics
+   ========================================================================== */
+
+.assessment-page {
+  background-color: var(--background);
+  min-height: calc(100vh - 140px);
+  padding: var(--space-8) 0 var(--space-16);
+  position: relative;
+}
+
+.assessment-container {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  position: relative;
+  z-index: 1;
+}
+
+/* ================= Header ================= */
+.assessment-header {
+  margin-bottom: var(--space-8);
+}
+
+.assessment-header.text-center {
+  text-align: center;
+}
+
+.assessment-header .eyebrow {
+  display: inline-block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--primary);
+  background-color: var(--primary-soft);
+  padding: 0.25rem 0.875rem;
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-3);
+}
+
+.assessment-title {
+  font-family: var(--font-display);
+  font-size: 2.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.25;
+  margin-bottom: var(--space-3);
+  letter-spacing: -0.015em;
+}
+
+.assessment-subtitle {
+  font-size: 1.0625rem;
+  color: var(--text-secondary);
+  max-width: 580px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ================= Calm Step Indicator ================= */
+.calm-step-indicator {
+  margin-bottom: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.step-counter-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  padding: 0.35rem 1rem;
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-xs);
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.step-counter-badge span:first-child {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.step-counter-divider {
+  color: var(--text-subtle);
+}
+
+.step-counter-title {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.step-dots-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-6);
+  width: 100%;
+  max-width: 520px;
+}
+
+.step-dot-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--text-muted);
+  transition: all var(--transition-normal);
+}
+
+.step-dot-pill {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background-color: var(--surface);
+  border: 1.5px solid var(--border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: all var(--transition-normal);
+}
+
+.step-dot-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  display: inline;
+}
+
+.step-dot-item.active .step-dot-pill {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: #FFFFFF;
+  box-shadow: 0 0 0 4px var(--primary-glow);
+}
+
+.step-dot-item.active .step-dot-label {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.step-dot-item.completed .step-dot-pill {
+  background-color: var(--good);
+  border-color: var(--good);
+  color: #FFFFFF;
+}
+
+.step-dot-item.completed .step-dot-label {
+  color: var(--text-primary);
+}
+
+/* ================= Card Shell ================= */
+.assessment-card-main {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-10) var(--space-8);
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+
+.step-intro {
+  margin-bottom: var(--space-8);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.step-heading {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.step-description {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ================= Choice Pills (Gender, etc.) ================= */
+.pill-selection-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+  margin-top: var(--space-1);
+}
+
+.choice-pill-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.625rem 1.25rem;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--border);
+  background-color: var(--surface);
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.choice-pill-btn:hover {
+  border-color: var(--primary);
+  background-color: var(--primary-soft);
+  color: var(--primary);
+}
+
+.choice-pill-btn.selected {
+  border-color: var(--primary);
+  background-color: var(--primary-soft);
+  color: var(--primary);
+  font-weight: 600;
+  box-shadow: 0 0 0 3px var(--primary-glow);
+}
+
+.choice-pill-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--primary);
+}
+
+/* ================= Platform Selection Grid ================= */
+.platform-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.platform-pill-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 46px;
+  padding: 0.5rem 0.875rem;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border);
+  background-color: var(--surface-subtle);
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.platform-pill-btn:hover {
+  background-color: #FFFFFF;
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.platform-pill-btn.selected {
+  background-color: var(--primary-soft);
+  border-color: var(--primary);
+  color: var(--primary);
+  font-weight: 600;
+  box-shadow: 0 0 0 2px var(--primary-glow);
+}
+
+.platform-pill-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--primary);
+}
+
+.platform-icon {
+  flex-shrink: 0;
+  opacity: 0.75;
+}
+
+.platform-pill-btn.selected .platform-icon {
+  opacity: 1;
+}
+
+/* ================= Tactile Sliders (44px touch target) ================= */
+.calm-slider-container {
+  background-color: var(--surface-subtle);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6) var(--space-6);
+  margin-bottom: var(--space-5);
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.calm-slider-container:focus-within {
+  border-color: var(--primary);
+  background-color: #FFFFFF;
+  box-shadow: var(--shadow-sm);
+}
+
+.slider-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+}
+
+.slider-label {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.slider-label-with-badge {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.restful-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--good-text);
+  background-color: var(--good-bg);
+  border: 1px solid var(--good-border);
+  padding: 0.125rem 0.5rem;
+  border-radius: var(--radius-full);
+  width: fit-content;
+}
+
+.slider-large-value {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  padding: 0.25rem 0.875rem;
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-xs);
+}
+
+.slider-large-value strong {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.slider-large-value span {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Slider Track Box & Restful Range Band */
+.calm-slider-track-box {
+  position: relative;
+  height: 44px; /* 44px tactile touch target */
+  display: flex;
+  align-items: center;
+}
+
+.calm-slider-track-box.with-band {
+  /* Restful band positioned relative to this track */
+}
+
+.restful-range-band {
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  background-color: rgba(143, 184, 168, 0.22);
+  border: 1.5px dashed var(--accent-sage);
+  border-radius: 8px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.calm-range-input {
+  width: 100%;
+  height: 44px; /* 44px height for full touch area */
+  background: transparent;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  margin: 0;
+}
+
+/* WebKit Track */
+.calm-range-input::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8px;
+  background-color: rgba(31, 42, 55, 0.08);
+  border-radius: var(--radius-full);
+  border: none;
+}
+
+/* WebKit Thumb */
+.calm-range-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  border: 3px solid var(--primary);
+  box-shadow: 0 2px 8px rgba(31, 42, 55, 0.15);
+  margin-top: -9px; /* Centers 26px thumb on 8px track */
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.calm-range-input::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 4px 12px rgba(31, 42, 55, 0.2), 0 0 0 4px var(--primary-glow);
+}
+
+.calm-range-input::-webkit-slider-thumb:active {
+  transform: scale(1.08);
+  background-color: var(--primary-soft);
+}
+
+/* Firefox Track & Thumb */
+.calm-range-input::-moz-range-track {
+  width: 100%;
+  height: 8px;
+  background-color: rgba(31, 42, 55, 0.08);
+  border-radius: var(--radius-full);
+  border: none;
+}
+
+.calm-range-input::-moz-range-thumb {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  border: 3px solid var(--primary);
+  box-shadow: 0 2px 8px rgba(31, 42, 55, 0.15);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.calm-range-input::-moz-range-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 4px 12px rgba(31, 42, 55, 0.2), 0 0 0 4px var(--primary-glow);
+}
+
+.calm-range-input:focus-visible {
+  outline: none;
+}
+
+.calm-range-input:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 3px var(--surface), 0 0 0 6px var(--primary);
+}
+
+.calm-range-input:focus-visible::-moz-range-thumb {
+  box-shadow: 0 0 0 3px var(--surface), 0 0 0 6px var(--primary);
+}
+
+.slider-ticks {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: var(--space-1);
+}
+
+.slider-ticks .tick-restful {
+  color: var(--good-text);
+  font-weight: 600;
+}
+
+/* ================= Stress Level 4 Pill Buttons ================= */
+.stress-pills-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.stress-pill-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 72px;
+  padding: var(--space-3) var(--space-2);
+  border-radius: var(--radius-md);
+  border: 2px solid var(--border);
+  background-color: var(--surface-subtle);
+  cursor: pointer;
+  text-align: center;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.stress-pill-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.stress-pill-desc {
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+  line-height: 1.3;
+}
+
+.stress-pill-btn:hover {
+  border-color: var(--border-strong);
+  background-color: #FFFFFF;
+}
+
+/* Stress Level Selected Variants (Calm, non-alarming) */
+.stress-pill-btn.stress-low.selected {
+  background-color: var(--good-bg);
+  border-color: var(--good);
+  border-width: 2.5px;
+  box-shadow: 0 0 0 3px rgba(95, 163, 127, 0.2);
+}
+.stress-pill-btn.stress-low.selected .stress-pill-title {
+  color: var(--good-text);
+}
+
+.stress-pill-btn.stress-medium.selected {
+  background-color: var(--primary-soft);
+  border-color: var(--primary);
+  border-width: 2.5px;
+  box-shadow: 0 0 0 3px var(--primary-glow);
+}
+.stress-pill-btn.stress-medium.selected .stress-pill-title {
+  color: var(--primary);
+}
+
+.stress-pill-btn.stress-high.selected {
+  background-color: var(--moderate-bg);
+  border-color: var(--moderate);
+  border-width: 2.5px;
+  box-shadow: 0 0 0 3px rgba(224, 164, 88, 0.2);
+}
+.stress-pill-btn.stress-high.selected .stress-pill-title {
+  color: var(--moderate-text);
+}
+
+.stress-pill-btn.stress-very-high.selected {
+  background-color: var(--needs-attention-bg);
+  border-color: var(--needs-attention);
+  border-width: 2.5px;
+  box-shadow: 0 0 0 3px rgba(217, 139, 115, 0.2);
+}
+.stress-pill-btn.stress-very-high.selected .stress-pill-title {
+  color: var(--needs-attention-text);
+}
+
+/* Selected tick mark */
+.stress-pill-btn.selected::after {
+  content: '✓';
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  line-height: 1;
+}
+.stress-pill-btn.stress-low.selected::after { color: var(--good-text); }
+.stress-pill-btn.stress-medium.selected::after { color: var(--primary); }
+.stress-pill-btn.stress-high.selected::after { color: var(--moderate-text); }
+.stress-pill-btn.stress-very-high.selected::after { color: var(--needs-attention-text); }
+
+.stress-pill-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--primary);
+}
+
+/* ================= Single-Step Form Section Blocks ================= */
+.form-section-block {
+  padding: var(--space-2) 0;
+}
+
+.form-section-divider {
+  height: 1px;
+  background-color: var(--border-soft);
+  margin: var(--space-10) 0;
+  width: 100%;
+}
+
+.section-step-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  background-color: var(--primary-soft);
+  color: var(--primary);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-bottom: var(--space-3);
+}
+
+/* ================= Bottom Controls ================= */
+.assessment-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.assessment-single-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  margin-top: var(--space-10);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--border-soft);
+  text-align: center;
+}
+
+.assessment-submit-btn {
+  min-width: 260px;
+}
+
+.assessment-trust-pills {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.assessment-trust-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.assessment-privacy-note {
+  margin-top: var(--space-6);
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .assessment-card-main {
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .step-dots-row {
+    gap: var(--space-3);
+  }
+
+  .step-dot-label {
+    display: none;
+  }
+
+  .form-grid-2 {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  .stress-pills-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .slider-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+}

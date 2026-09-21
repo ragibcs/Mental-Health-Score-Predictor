@@ -1,0 +1,182 @@
+/* ==========================================================================
+   Calm Ground - Responsive Overrides & Mobile Adaptation
+   Warm, tactile mobile ergonomics with zero overflow and touch-friendly targets
+   ========================================================================== */
+
+/* ================= Tablet & Mid-Sized Screens (<= 1024px) ================= */
+@media (max-width: 1024px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    text-align: center;
+  }
+
+  .hero-content {
+    align-items: center;
+  }
+
+  .hero-description {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-cta-group {
+    justify-content: center;
+  }
+
+  .hero-social-proof {
+    justify-content: center;
+  }
+
+  .stats-banner-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .steps-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .stats-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dashboard-grid-main {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ================= Mobile Devices (<= 768px) ================= */
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none !important;
+  }
+
+  .mobile-only {
+    display: flex !important;
+  }
+
+  .hero-section {
+    padding: var(--space-8) 0 var(--space-10);
+  }
+
+  .hero-title {
+    font-size: 2.25rem;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+  }
+
+  .stats-banner-container {
+    grid-template-columns: 1fr;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-grid-4 {
+    grid-template-columns: 1fr;
+  }
+
+  .form-grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-params-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .result-score-presentation {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    text-align: center;
+  }
+
+  .result-action-buttons {
+    justify-content: center;
+  }
+
+  .cta-card {
+    padding: var(--space-8) var(--space-5);
+  }
+
+  .cta-title {
+    font-size: 1.75rem;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  .footer-bottom-row {
+    flex-direction: column;
+    gap: var(--space-3);
+    text-align: center;
+  }
+
+  .assessment-card-main,
+  .result-card-hero {
+    padding: var(--space-6) var(--space-5);
+  }
+
+  .history-header-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .history-action-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .history-action-buttons .btn {
+    width: 100%;
+  }
+
+  .toast-container {
+    left: var(--space-4);
+    right: var(--space-4);
+    bottom: var(--space-4);
+    width: auto;
+  }
+}
+
+/* ================= Small Mobile (<= 480px) ================= */
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 1.875rem;
+  }
+
+  .hero-cta-group {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-cta-group .btn {
+    width: 100%;
+  }
+
+  .score-visual-row {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .modal-params-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .slider-card-box {
+    padding: var(--space-4) var(--space-3);
+  }
+}

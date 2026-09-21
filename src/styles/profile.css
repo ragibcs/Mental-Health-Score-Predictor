@@ -1,0 +1,180 @@
+/* ==========================================================================
+   Calm Ground - Profile & Account Styles
+   Simple, quiet, peaceful account management
+   ========================================================================== */
+
+.profile-page {
+  background-color: var(--background);
+  min-height: calc(100vh - 140px);
+  padding: var(--space-8) 0 var(--space-16);
+}
+
+.profile-container {
+  max-width: var(--max-width-lg);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+.profile-header {
+  margin-bottom: var(--space-8);
+}
+
+.profile-title {
+  font-family: var(--font-display);
+  font-size: 2.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  margin-top: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.profile-subtitle {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 0.9fr;
+  gap: var(--space-8);
+  align-items: start;
+}
+
+/* ================= Profile Form Card ================= */
+.profile-form-card {
+  padding: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.profile-avatar-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.profile-large-avatar {
+  width: 4rem;
+  height: 4rem;
+  border-radius: var(--radius-full);
+  background-color: var(--primary-soft);
+  color: var(--primary);
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--surface);
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+}
+
+.profile-user-name {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.profile-user-email {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.profile-save-row {
+  margin-top: var(--space-2);
+}
+
+/* ================= Sidebar Cards ================= */
+.profile-sidebar-cards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.account-info-card,
+.quiet-signout-card {
+  padding: var(--space-6);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.sidebar-card-title {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-4);
+}
+
+.account-details-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.account-detail-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.detail-icon-box {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-full);
+  background-color: var(--surface-subtle);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.detail-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  display: block;
+}
+
+.detail-val {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.signout-desc {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin-bottom: var(--space-4);
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+}
