@@ -39,7 +39,7 @@
 .profile-grid {
   display: grid;
   grid-template-columns: 1.3fr 0.9fr;
-  gap: var(--space-8);
+  gap: var(--space-10);
   align-items: start;
 }
 
@@ -64,14 +64,14 @@
 }
 
 .profile-large-avatar {
-  width: 4rem;
-  height: 4rem;
-  border-radius: var(--radius-full);
-  background-color: var(--primary-soft);
-  color: var(--primary);
+  width: 4.75rem;
+  height: 4.75rem;
+  border-radius: var(--radius-lg);
+  background-image: var(--bento-gradient);
+  color: #FFFFFF;
   font-family: var(--font-display);
-  font-size: 1.75rem;
-  font-weight: 600;
+  font-size: 2rem;
+  font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -107,16 +107,16 @@
 .profile-sidebar-cards {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--space-8);
 }
 
 .account-info-card,
 .quiet-signout-card {
-  padding: var(--space-6);
+  padding: var(--space-7);
   border-radius: var(--radius-xl);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-soft);
   background-color: var(--surface);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-card);
 }
 
 .sidebar-card-title {
@@ -130,7 +130,7 @@
 .account-details-list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  gap: var(--space-5);
 }
 
 .account-detail-item {
@@ -140,11 +140,11 @@
 }
 
 .detail-icon-box {
-  width: 34px;
-  height: 34px;
-  border-radius: var(--radius-full);
-  background-color: var(--surface-subtle);
-  border: 1px solid var(--border);
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background-color: var(--primary-soft);
+  border: 1px solid transparent;
   display: flex;
   align-items: center;
   justify-content: center;

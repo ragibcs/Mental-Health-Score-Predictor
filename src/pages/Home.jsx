@@ -115,7 +115,7 @@ export default function Home() {
               <div className="preview-gauge-box">
                 <div className="preview-gauge-ring">
                   <svg viewBox="0 0 100 100" className="preview-gauge-svg">
-                    <circle cx="50" cy="50" r="42" stroke="rgba(31, 42, 55, 0.08)" strokeWidth="8" fill="none" />
+                    <circle cx="50" cy="50" r="42" stroke="var(--track-bg)" strokeWidth="8" fill="none" />
                     <circle
                       cx="50"
                       cy="50"

@@ -1,61 +1,43 @@
 /* ==========================================================================
-   Calm Ground - Responsive Overrides & Mobile Adaptation
-   Warm, tactile mobile ergonomics with zero overflow and touch-friendly targets
+   MindPulse — Global Responsive Layer
+
+   IMPORTANT: this file is imported LAST in main.jsx, so anything here wins
+   over the page stylesheets. It therefore deliberately owns only
+   cross-cutting chrome — navbar, footer, toasts — and global ergonomics.
+
+   Page-level layouts own their own breakpoints and must not be overridden
+   from here:
+     landing.css     -> hero, stats banner, steps bento, features bento  (1100/900/640)
+     dashboard.css   -> dashboard bento 4 -> 2 -> 1                      (1100/768/520)
+     assessment.css  -> form grid + sliders                              (640)
+     result.css      -> score hero + metrics                             (768)
+     history.css     -> history row                                      (900)
+     profile.css     -> profile split                                    (800)
+
+   Breakpoints are aligned to those pages: 1024 (chrome breathing room),
+   900 (nav collapses), 768 (single-column chrome), 560 (compact).
    ========================================================================== */
 
-/* ================= Tablet & Mid-Sized Screens (<= 1024px) ================= */
+/* ================= Tablet & Small Laptop (<= 1024px) ================= */
 @media (max-width: 1024px) {
-  .hero-container {
-    grid-template-columns: 1fr;
-    gap: var(--space-8);
-    text-align: center;
-  }
-
-  .hero-content {
-    align-items: center;
-  }
-
-  .hero-description {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .hero-cta-group {
-    justify-content: center;
-  }
-
-  .hero-social-proof {
-    justify-content: center;
-  }
-
-  .stats-banner-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .features-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .steps-grid {
-    grid-template-columns: 1fr;
+  /* The desktop cluster (nav pill + theme toggle + auth) tightens before
+     anything has to wrap or overflow. */
+  .navbar-container {
     gap: var(--space-4);
   }
 
-  .stats-grid-4 {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .dashboard-grid-main {
-    grid-template-columns: 1fr;
-  }
-
-  .profile-grid {
-    grid-template-columns: 1fr;
+  .navbar-nav {
+    gap: 0.15rem;
+    padding: 0.25rem;
   }
 }
 
-/* ================= Mobile Devices (<= 768px) ================= */
-@media (max-width: 768px) {
+/* ================= Nav Collapses To Drawer (<= 900px) =================
+   Raised from 768px: between 768 and 900 the desktop cluster (links + theme
+   toggle + auth buttons) had no room left and read as cramped. The drawer
+   gets comfortable tap targets instead.
+   ===================================================================== */
+@media (max-width: 900px) {
   .desktop-only {
     display: none !important;
   }
@@ -64,119 +46,67 @@
     display: flex !important;
   }
 
-  .hero-section {
-    padding: var(--space-8) 0 var(--space-10);
-  }
-
-  .hero-title {
-    font-size: 2.25rem;
-  }
-
-  .section-title {
-    font-size: 1.75rem;
-  }
-
-  .stats-banner-container {
-    grid-template-columns: 1fr;
-  }
-
-  .features-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .stats-grid-4 {
-    grid-template-columns: 1fr;
-  }
-
-  .form-grid-2 {
-    grid-template-columns: 1fr;
-  }
-
-  .modal-params-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .result-score-presentation {
-    grid-template-columns: 1fr;
-    gap: var(--space-6);
-    text-align: center;
-  }
-
-  .result-action-buttons {
-    justify-content: center;
-  }
-
-  .cta-card {
-    padding: var(--space-8) var(--space-5);
-  }
-
-  .cta-title {
-    font-size: 1.75rem;
-  }
-
+  /* Footer: 3 columns -> 2, with the brand block owning the full top row */
   .footer-grid {
-    grid-template-columns: 1fr;
-    gap: var(--space-6);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-10);
   }
 
-  .footer-bottom-row {
-    flex-direction: column;
-    gap: var(--space-3);
-    text-align: center;
+  .brand-col {
+    grid-column: span 2;
   }
 
-  .assessment-card-main,
-  .result-card-hero {
-    padding: var(--space-6) var(--space-5);
+  .brand-col .footer-description {
+    max-width: 520px;
+  }
+}
+
+/* ================= Mobile (<= 768px) ================= */
+@media (max-width: 768px) {
+  .navbar-container {
+    padding: var(--space-3) var(--space-4);
   }
 
-  .history-header-row {
-    flex-direction: column;
-    align-items: stretch;
+  .mobile-nav-drawer {
+    padding: var(--space-4);
   }
 
-  .history-action-buttons {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .history-action-buttons .btn {
-    width: 100%;
-  }
-
+  /* Toasts become a full-width banner instead of a corner card */
   .toast-container {
     left: var(--space-4);
     right: var(--space-4);
     bottom: var(--space-4);
     width: auto;
   }
+
+  .footer-section {
+    padding: var(--space-12) 0 var(--space-6);
+  }
+
+  .footer-container {
+    padding: 0 var(--space-4);
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+  }
+
+  .footer-bottom-links {
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
 }
 
-/* ================= Small Mobile (<= 480px) ================= */
-@media (max-width: 480px) {
-  .hero-title {
-    font-size: 1.875rem;
-  }
-
-  .hero-cta-group {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .hero-cta-group .btn {
-    width: 100%;
-  }
-
-  .score-visual-row {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .modal-params-grid {
+/* ================= Compact Mobile (<= 560px) ================= */
+@media (max-width: 560px) {
+  .footer-grid {
     grid-template-columns: 1fr;
+    gap: var(--space-8);
   }
 
-  .slider-card-box {
-    padding: var(--space-4) var(--space-3);
+  .brand-col {
+    grid-column: span 1;
   }
 }

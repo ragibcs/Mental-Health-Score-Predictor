@@ -104,9 +104,21 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* 4 Human-labeled KPI Cards */}
-        <div className="stats-grid-4">
+        {/*
+          Single bento grid.
+            rows 1-2 : score hero (2x2)  |  two stat tiles
+            row  3   : trend (2)         |  recent check-ins (2)
+        */}
+        <div className="dashboard-bento">
+          <ScoreCard
+            score={latestScore}
+            date={stats?.last_assessment_date}
+            count={totalCount}
+            isLoading={isLoading}
+          />
+
           <StatCard
+            tint="violet"
             title="Latest check-in"
             value={latestScore ? `${parseFloat(latestScore).toFixed(1)} / 10` : '—'}
             subtitle={stats?.last_assessment_date ? `Logged ${formatDate(stats.last_assessment_date)}` : 'No checks logged yet'}
@@ -120,6 +132,7 @@ export default function Dashboard() {
           />
 
           <StatCard
+            tint="emerald"
             title="Your average"
             value={avgScore ? `${parseFloat(avgScore).toFixed(1)} / 10` : '—'}
             subtitle="Overall composite across checks"
@@ -129,6 +142,7 @@ export default function Dashboard() {
           />
 
           <StatCard
+            tint="cyan"
             title="Typical screen time"
             value={typicalScreenHours}
             subtitle="Average daily social media usage"
@@ -138,6 +152,7 @@ export default function Dashboard() {
           />
 
           <StatCard
+            tint="amber"
             title="Check-ins so far"
             value={totalCount.toString()}
             subtitle="Personal reflections recorded"
@@ -145,26 +160,9 @@ export default function Dashboard() {
             color="var(--moderate)"
             isLoading={isLoading}
           />
-        </div>
 
-        {/* Center Grid: Featured Score Gauge & Score Trajectory */}
-        <div className="dashboard-grid-main">
-          <div className="dashboard-col-left">
-            <ScoreCard
-              score={latestScore}
-              date={stats?.last_assessment_date}
-              count={totalCount}
-              isLoading={isLoading}
-            />
-          </div>
+          <ScoreTrend history={history} isLoading={isLoading} />
 
-          <div className="dashboard-col-right">
-            <ScoreTrend history={history} isLoading={isLoading} />
-          </div>
-        </div>
-
-        {/* Bottom Section: Recent Check-in Cards */}
-        <div className="dashboard-bottom-section">
           <RecentAssessments
             assessments={history}
             isLoading={isLoading}

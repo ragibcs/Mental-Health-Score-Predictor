@@ -33,7 +33,7 @@ function applyTheme(resolved) {
 
   const meta = document.querySelector('meta[name="theme-color"]');
   if (meta) {
-    meta.setAttribute('content', resolved === 'dark' ? '#12171E' : '#FAF7F2');
+    meta.setAttribute('content', resolved === 'dark' ? '#0B0D16' : '#F6F6FB');
   }
 }
 

@@ -8,10 +8,11 @@ export default function RecentAssessments({
   assessments = [],
   isLoading = false,
   onViewDetail,
+  className = '',
 }) {
   if (isLoading) {
     return (
-      <div className="card recent-assessments-card">
+      <div className={`card recent-assessments-card ${className}`.trim()}>
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
           <Skeleton width="40%" height="1.5rem" />
           <Skeleton width="20%" height="1rem" />
@@ -26,7 +27,7 @@ export default function RecentAssessments({
   }
 
   return (
-    <div className="card recent-assessments-card">
+    <div className={`card recent-assessments-card ${className}`.trim()}>
       <div className="card-header-flex">
         <div>
           <span className="eyebrow">Past Reflections</span>

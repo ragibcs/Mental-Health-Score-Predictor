@@ -1,11 +1,12 @@
 @import './variables.css';
 
 /* ==========================================================================
-   Calm Ground - MindPulse HealthTech Design Language
-   Warm, quiet, human space. Soft daylight, Fraunces serif, gentle pills.
+   MindPulse — "Bento Vivid"
+   Modular bento tiles, vivid saturated blocks, chunky radii, generous space.
+   Every colour comes from variables.css so both themes stay in sync.
    ========================================================================== */
 
-/* CSS Reset & Base */
+/* ---------- Reset & base ---------- */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -35,10 +36,8 @@ body {
   background-attachment: fixed;
   overflow-x: hidden;
   position: relative;
-  transition: background-color var(--transition-normal), color var(--transition-normal);
 }
 
-/* Theming should feel like a slow dimmer switch, not a flash */
 html, body, .app-shell {
   transition: background-color 300ms ease, color 300ms ease;
 }
@@ -63,25 +62,25 @@ html, body, .app-shell {
   width: 100%;
 }
 
-/* Typography Hierarchy */
+/* ---------- Typography: larger, more presence ---------- */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
   color: var(--text-primary);
-  font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: -0.015em;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
 }
 
-h1 { font-size: 2.35rem; font-weight: 600; }
-h2 { font-size: 1.85rem; font-weight: 600; }
-h3 { font-size: 1.4rem; font-weight: 600; }
-h4 { font-size: 1.15rem; font-weight: 600; }
-h5 { font-size: 1rem; font-weight: 600; }
+h1 { font-size: clamp(2.5rem, 5vw, 3.75rem); }
+h2 { font-size: clamp(1.9rem, 3.2vw, 2.6rem); }
+h3 { font-size: clamp(1.35rem, 2vw, 1.7rem); }
+h4 { font-size: 1.25rem; letter-spacing: -0.02em; }
+h5 { font-size: 1.05rem; letter-spacing: -0.01em; }
 
 p {
   color: var(--text-secondary);
-  line-height: 1.65;
-  font-size: 1rem;
+  line-height: 1.7;
+  font-size: 1.0625rem;
 }
 
 a {
@@ -90,9 +89,7 @@ a {
   transition: color var(--transition-fast);
 }
 
-a:hover {
-  color: var(--primary-hover);
-}
+a:hover { color: var(--primary-hover); }
 
 button {
   font-family: inherit;
@@ -102,19 +99,16 @@ button {
   outline: none;
 }
 
-input, select, textarea {
-  font-family: inherit;
-  font-size: 1rem;
-}
+input, select, textarea { font-family: inherit; font-size: 1rem; }
 
-/* Accessible Focus States (Primary color, 3px visible ring) */
+/* ---------- Focus: 3px visible ring, never removed ---------- */
 :focus-visible {
   outline: 3px solid var(--primary);
   outline-offset: 2px;
   box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
-/* Utility Helpers */
+/* ---------- Utilities ---------- */
 .text-primary { color: var(--primary) !important; }
 .text-secondary { color: var(--text-secondary) !important; }
 .text-success { color: var(--good) !important; }
@@ -129,50 +123,30 @@ input, select, textarea {
 .font-bold { font-weight: 700 !important; }
 .w-full { width: 100% !important; }
 
-/* Signature Element: Soft Blurred Ambient Gradient Blooms */
-.ambient-blobs-container {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 0;
+.text-gradient {
+  background-image: var(--brand-gradient);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: gradientPan 9s ease-in-out infinite;
 }
 
-.ambient-blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(70px);
-  opacity: 0.35;
-  mix-blend-mode: var(--blob-blend, multiply);
-  pointer-events: none;
-}
-
-.ambient-blob-sage {
-  background: radial-gradient(circle, var(--accent-sage) 0%, rgba(143, 184, 168, 0) 70%);
-}
-
-.ambient-blob-primary {
-  background: radial-gradient(circle, var(--primary) 0%, rgba(185, 212, 235, 0) 70%);
-}
-
-.ambient-blob-cream {
-  background: radial-gradient(circle, var(--moderate) 0%, rgba(243, 229, 212, 0) 70%);
-}
-
-/* Soft Human Category & Eyebrow Label */
+/* Soft pill label above headings */
 .eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   font-family: var(--font-body);
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--primary);
   background-color: var(--primary-soft);
-  padding: 0.25rem 0.875rem;
+  padding: 0.4rem 1.1rem;
   border-radius: var(--radius-full);
-  margin-bottom: var(--space-3);
-  letter-spacing: normal;
+  margin-bottom: var(--space-4);
+  letter-spacing: 0.01em;
 }
 
 .eyebrow-sage {
@@ -180,7 +154,7 @@ input, select, textarea {
   background-color: var(--good-bg);
 }
 
-/* Container & Layout */
+/* ---------- Containers ---------- */
 .container {
   width: 100%;
   max-width: var(--max-width-xl);
@@ -202,7 +176,114 @@ input, select, textarea {
   z-index: 1;
 }
 
-/* ================= NAVBAR STYLES ================= */
+/* ==========================================================================
+   BENTO GRID
+   The signature layout primitive. Tiles vary in span so the grid reads as
+   colourful blocks of different sizes rather than an even, cramped matrix.
+   ========================================================================== */
+.bento-grid {
+  display: grid;
+  gap: var(--bento-gap);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: minmax(0, auto);
+}
+
+.bento-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-7);
+  background-color: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--bento-radius);
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition-gentle), box-shadow var(--transition-gentle),
+    border-color var(--transition-normal);
+}
+
+.bento-tile:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--border-strong);
+}
+
+/* Chunky, bento-ish lift without moving layout */
+.bento-tile:focus-within {
+  border-color: var(--primary);
+}
+
+/* Span helpers — 4-column base grid, collapsing to 1 column on mobile */
+.bento-span-2 { grid-column: span 2; }
+.bento-span-3 { grid-column: span 3; }
+.bento-span-4 { grid-column: span 4; }
+.bento-row-2 { grid-row: span 2; }
+
+/* Tinted tiles: set the ink, then override the wash via the modifier class */
+.tile-violet  { background-color: var(--tile-violet-soft);  border-color: transparent; }
+.tile-blue    { background-color: var(--tile-blue-soft);    border-color: transparent; }
+.tile-cyan    { background-color: var(--tile-cyan-soft);    border-color: transparent; }
+.tile-emerald { background-color: var(--tile-emerald-soft); border-color: transparent; }
+.tile-amber   { background-color: var(--tile-amber-soft);   border-color: transparent; }
+.tile-rose    { background-color: var(--tile-rose-soft);    border-color: transparent; }
+.tile-indigo  { background-color: var(--tile-indigo-soft);  border-color: transparent; }
+
+/* Solid gradient tile for the one hero moment in a grid */
+.tile-gradient {
+  background-image: var(--bento-gradient);
+  border-color: transparent;
+  color: #FFFFFF;
+}
+
+.tile-gradient h1, .tile-gradient h2, .tile-gradient h3, .tile-gradient h4,
+.tile-gradient p, .tile-gradient span {
+  color: #FFFFFF;
+}
+
+.tile-gradient .tile-caption { color: rgba(255, 255, 255, 0.82); }
+
+.tile-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+  background-color: var(--surface);
+  color: var(--primary);
+  box-shadow: var(--shadow-xs);
+}
+
+.tile-icon.tile-icon-solid { background-image: var(--bento-gradient); color: #FFFFFF; }
+.tile-icon.tile-icon-violet  { background-color: var(--tile-violet-soft);  color: var(--tile-violet); }
+.tile-icon.tile-icon-blue    { background-color: var(--tile-blue-soft);    color: var(--tile-blue); }
+.tile-icon.tile-icon-cyan    { background-color: var(--tile-cyan-soft);    color: var(--tile-cyan); }
+.tile-icon.tile-icon-emerald { background-color: var(--tile-emerald-soft); color: var(--tile-emerald); }
+.tile-icon.tile-icon-amber   { background-color: var(--tile-amber-soft);   color: var(--tile-amber); }
+.tile-icon.tile-icon-rose    { background-color: var(--tile-rose-soft);    color: var(--tile-rose); }
+
+.tile-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.tile-text {
+  font-size: 0.9875rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+.tile-caption {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+/* ================= NAVBAR ================= */
 .navbar-header {
   position: sticky;
   top: 0;
@@ -210,56 +291,59 @@ input, select, textarea {
   background-color: var(--glass-nav-bg);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--border-subtle);
   transition: all var(--transition-normal);
 }
 
 .navbar-container {
   max-width: var(--max-width-xl);
   margin: 0 auto;
-  padding: 1rem var(--space-6);
+  padding: var(--space-4) var(--space-6);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: var(--space-5);
 }
 
 .navbar-brand {
   display: flex;
   align-items: center;
-  gap: 0.625rem;
+  gap: 0.7rem;
   font-family: var(--font-display);
-  font-size: 1.45rem;
-  font-weight: 600;
+  font-size: 1.4rem;
+  font-weight: 800;
   color: var(--text-primary);
   text-decoration: none;
+  letter-spacing: -0.03em;
 }
 
 .navbar-logo-icon {
-  width: 2.25rem;
-  height: 2.25rem;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--primary) 0%, var(--accent-sage) 100%);
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-sm);
+  background-image: var(--bento-gradient);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 10px rgba(79, 124, 172, 0.25);
+  color: #FFFFFF;
+  box-shadow: 0 6px 18px -6px rgba(124, 58, 237, 0.6);
 }
 
-.navbar-brand-text {
-  color: var(--text-primary);
-  font-weight: 600;
-}
+.navbar-brand-text { color: var(--text-primary); font-weight: 800; }
 
 .navbar-nav {
   display: flex;
   align-items: center;
   gap: var(--space-2);
+  padding: 0.3rem;
+  background-color: var(--surface-subtle);
+  border-radius: var(--radius-full);
 }
 
 .nav-link {
-  padding: 0.5rem 1rem;
+  padding: 0.55rem 1.15rem;
   font-size: 0.9375rem;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-secondary);
   border-radius: var(--radius-full);
   transition: all var(--transition-fast);
@@ -267,22 +351,16 @@ input, select, textarea {
 
 .nav-link:hover {
   color: var(--text-primary);
-  background-color: var(--surface-subtle);
+  background-color: var(--surface);
 }
 
 .nav-link.active {
-  color: var(--primary);
-  font-weight: 600;
-  background-color: var(--primary-soft);
+  color: var(--on-primary);
+  background-image: var(--bento-gradient);
+  box-shadow: 0 6px 16px -6px rgba(124, 58, 237, 0.55);
 }
 
-/* The logo mark glows softly in dark mode so it does not go flat */
-[data-theme='dark'] .navbar-logo-icon {
-  box-shadow: 0 2px 16px rgba(127, 178, 222, 0.4);
-}
-
-/* Keeps the right side of the navbar on one line: theme toggle, user
-actions and the mobile hamburger all share this cluster. */
+/* Keeps the right side of the navbar on one line */
 .navbar-right-cluster {
   display: flex;
   align-items: center;
@@ -295,7 +373,6 @@ actions and the mobile hamburger all share this cluster. */
   gap: var(--space-3);
 }
 
-/* Labelled theme row inside the mobile drawer */
 .mobile-theme-row {
   background: none;
   border: none;
@@ -310,15 +387,13 @@ actions and the mobile hamburger all share this cluster. */
   gap: var(--space-2);
 }
 
-.user-dropdown-container {
-  position: relative;
-}
+.user-dropdown-container { position: relative; }
 
 .user-profile-btn {
   display: flex;
   align-items: center;
-  gap: 0.625rem;
-  padding: 0.375rem 0.875rem;
+  gap: 0.65rem;
+  padding: 0.4rem 1rem 0.4rem 0.4rem;
   background-color: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-full);
@@ -327,17 +402,17 @@ actions and the mobile hamburger all share this cluster. */
 }
 
 .user-profile-btn:hover {
-  border-color: var(--border-strong);
-  background-color: var(--surface-subtle);
+  border-color: var(--primary);
+  background-color: var(--primary-soft);
 }
 
 .user-avatar-sm {
-  width: 1.85rem;
-  height: 1.85rem;
-  border-radius: 50%;
-  background: var(--brand-gradient);
-  color: var(--on-primary);
-  font-weight: 600;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-full);
+  background-image: var(--bento-gradient);
+  color: #FFFFFF;
+  font-weight: 700;
   font-size: 0.8125rem;
   display: flex;
   align-items: center;
@@ -346,7 +421,7 @@ actions and the mobile hamburger all share this cluster. */
 
 .user-name-text {
   font-size: 0.875rem;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-primary);
   max-width: 130px;
   overflow: hidden;
@@ -354,35 +429,25 @@ actions and the mobile hamburger all share this cluster. */
   white-space: nowrap;
 }
 
-.dropdown-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 99;
-}
+.dropdown-overlay { position: fixed; inset: 0; z-index: 99; }
 
 .user-dropdown-menu {
   position: absolute;
-  top: calc(100% + 0.5rem);
+  top: calc(100% + 0.75rem);
   right: 0;
-  width: 230px;
+  width: 250px;
   background-color: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-  padding: 0.5rem;
+  box-shadow: var(--shadow-modal);
+  padding: 0.6rem;
   z-index: 100;
   animation: fadeIn 0.15s ease;
 }
 
-.dropdown-user-header {
-  padding: 0.625rem 0.75rem;
-}
+.dropdown-user-header { padding: 0.75rem 0.85rem; }
 
-.dropdown-user-name {
-  font-size: 0.9375rem;
-  font-weight: 600;
-  color: var(--text-primary);
-}
+.dropdown-user-name { font-size: 0.9375rem; font-weight: 700; color: var(--text-primary); }
 
 .dropdown-user-email {
   font-size: 0.8125rem;
@@ -392,19 +457,15 @@ actions and the mobile hamburger all share this cluster. */
   white-space: nowrap;
 }
 
-.dropdown-divider {
-  height: 1px;
-  background-color: var(--border-subtle);
-  margin: 0.375rem 0;
-}
+.dropdown-divider { height: 1px; background-color: var(--border-subtle); margin: 0.4rem 0; }
 
 .dropdown-item {
   display: flex;
   align-items: center;
-  gap: 0.625rem;
+  gap: 0.75rem;
   width: 100%;
-  padding: 0.5rem 0.75rem;
-  font-size: 0.875rem;
+  padding: 0.7rem 0.85rem;
+  font-size: 0.9375rem;
   font-weight: 500;
   color: var(--text-secondary);
   border-radius: var(--radius-sm);
@@ -412,26 +473,18 @@ actions and the mobile hamburger all share this cluster. */
   text-decoration: none;
 }
 
-.dropdown-item:hover {
-  background-color: var(--surface-subtle);
-  color: var(--text-primary);
-}
+.dropdown-item:hover { background-color: var(--surface-subtle); color: var(--text-primary); }
 
 .dropdown-item.text-danger:hover {
   background-color: var(--needs-attention-bg);
   color: var(--needs-attention);
 }
 
-.desktop-only {
-  display: flex;
-}
-
-.mobile-only {
-  display: none;
-}
+.desktop-only { display: flex; }
+.mobile-only { display: none; }
 
 .hamburger-btn {
-  padding: 0.375rem;
+  padding: 0.5rem;
   color: var(--text-primary);
   display: flex;
   align-items: center;
@@ -441,21 +494,17 @@ actions and the mobile hamburger all share this cluster. */
 .mobile-nav-drawer {
   background-color: var(--surface);
   border-bottom: 1px solid var(--border);
-  padding: 1.25rem var(--space-6);
+  padding: var(--space-5) var(--space-6);
   box-shadow: var(--shadow-lg);
   animation: fadeIn 0.2s ease;
 }
 
-.mobile-nav-links {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
+.mobile-nav-links { display: flex; flex-direction: column; gap: 0.5rem; }
 
 .mobile-nav-link {
-  padding: 0.75rem 1rem;
+  padding: 0.9rem 1rem;
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-primary);
   border-radius: var(--radius-md);
   text-decoration: none;
@@ -464,87 +513,51 @@ actions and the mobile hamburger all share this cluster. */
   gap: 0.75rem;
 }
 
-.mobile-nav-link:hover {
-  background-color: var(--surface-subtle);
-}
+.mobile-nav-link:hover { background-color: var(--surface-subtle); }
 
-.mobile-nav-divider {
-  height: 1px;
-  background-color: var(--border-subtle);
-  margin: 0.5rem 0;
-}
+.mobile-nav-divider { height: 1px; background-color: var(--border-subtle); margin: 0.75rem 0; }
 
-.mobile-auth-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  margin-top: 0.5rem;
-}
+.mobile-auth-actions { display: flex; flex-direction: column; gap: 0.85rem; margin-top: 0.5rem; }
 
-/* ================= BUTTON STYLES (Pill-Shaped, 48px Min Height) ================= */
+/* ================= BUTTONS — chunky pills, 54px min ================= */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.6rem;
   font-family: var(--font-body);
-  font-weight: 500;
+  font-weight: 600;
   border-radius: var(--radius-full);
-  min-height: 48px;
-  padding: 0.625rem 1.5rem;
+  min-height: 54px;
+  padding: 0.8rem 1.9rem;
   transition: all var(--transition-fast);
   white-space: nowrap;
   user-select: none;
   border: 1px solid transparent;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.btn:active {
-  transform: scale(0.98);
-}
+.btn:active { transform: scale(0.975); }
 
-.btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none !important;
-}
+.btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none !important; }
 
-/* Sizes */
-.btn-sm {
-  min-height: 40px;
-  padding: 0.4rem 1.1rem;
-  font-size: 0.875rem;
-}
+.btn-sm { min-height: 44px; padding: 0.55rem 1.3rem; font-size: 0.9rem; }
+.btn-md { min-height: 54px; padding: 0.8rem 1.9rem; font-size: 0.9875rem; }
+.btn-lg { min-height: 62px; padding: 1rem 2.4rem; font-size: 1.075rem; font-weight: 700; }
+.btn-full { width: 100%; }
 
-.btn-md {
-  min-height: 48px;
-  padding: 0.65rem 1.6rem;
-  font-size: 0.95rem;
-}
-
-.btn-lg {
-  min-height: 52px;
-  padding: 0.85rem 2rem;
-  font-size: 1.05rem;
-  font-weight: 600;
-}
-
-.btn-full {
-  width: 100%;
-}
-
-/* Variants */
 .btn-primary {
   position: relative;
   overflow: hidden;
   background-color: var(--primary);
-  background-image: var(--brand-gradient);
-  color: var(--on-primary);
-  box-shadow: 0 4px 14px rgba(61, 110, 153, 0.25);
+  background-image: var(--bento-gradient);
+  color: #FFFFFF;
+  box-shadow: 0 10px 26px -10px rgba(124, 58, 237, 0.7);
 }
 
 .btn-primary:hover:not(:disabled) {
-  box-shadow: 0 8px 26px rgba(61, 110, 153, 0.38);
-  transform: translateY(-2px);
+  box-shadow: 0 16px 36px -12px rgba(124, 58, 237, 0.85);
+  transform: translateY(-3px);
 }
 
 /* Light sweeps across the button face on hover */
@@ -555,45 +568,31 @@ actions and the mobile hamburger all share this cluster. */
   left: -120%;
   width: 60%;
   height: 100%;
-  background: linear-gradient(
-    100deg,
-    transparent 0%,
-    var(--sheen) 50%,
-    transparent 100%
-  );
+  background: linear-gradient(100deg, transparent 0%, var(--sheen) 50%, transparent 100%);
   transform: skewX(-18deg);
   pointer-events: none;
 }
 
-.btn-primary:hover:not(:disabled)::after {
-  animation: sheenSweep 700ms ease-out;
-}
+.btn-primary:hover:not(:disabled)::after { animation: sheenSweep 700ms ease-out; }
 
 .btn-secondary {
-  background-color: var(--accent-sage);
-  color: var(--on-primary);
-  box-shadow: 0 4px 12px rgba(107, 158, 135, 0.25);
+  background-color: var(--text-ink);
+  color: var(--background);
+  box-shadow: 0 10px 24px -10px rgba(14, 18, 32, 0.6);
 }
 
 .btn-secondary:hover:not(:disabled) {
-  background-color: var(--accent-sage-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(107, 158, 135, 0.34);
+  background-color: var(--primary);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 32px -12px rgba(124, 58, 237, 0.7);
 }
 
-.btn-soft {
-  background-color: var(--primary-soft);
-  color: var(--primary);
-}
-
-.btn-soft:hover:not(:disabled) {
-  background-color: var(--btn-soft-hover);
-  color: var(--primary-hover);
-}
+.btn-soft { background-color: var(--primary-soft); color: var(--primary); }
+.btn-soft:hover:not(:disabled) { background-color: var(--btn-soft-hover); color: var(--primary-hover); }
 
 .btn-outline {
   background-color: var(--surface);
-  border-color: var(--border-soft);
+  border-color: var(--border);
   color: var(--text-primary);
   box-shadow: var(--shadow-xs);
 }
@@ -601,32 +600,22 @@ actions and the mobile hamburger all share this cluster. */
 .btn-outline:hover:not(:disabled) {
   border-color: var(--primary);
   color: var(--primary);
-  background-color: var(--bg-recessed);
-  transform: translateY(-1px);
+  background-color: var(--primary-soft);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-sm);
 }
 
-.btn-ghost {
-  background-color: transparent;
-  color: var(--text-secondary);
-}
-
-.btn-ghost:hover:not(:disabled) {
-  background-color: var(--bg-recessed);
-  color: var(--text-primary);
-}
+.btn-ghost { background-color: transparent; color: var(--text-secondary); }
+.btn-ghost:hover:not(:disabled) { background-color: var(--surface-subtle); color: var(--text-primary); }
 
 .btn-danger {
   background-color: var(--btn-danger-bg);
   color: var(--needs-attention);
-  border: 1px solid rgba(200, 106, 80, 0.2);
+  border: 1px solid rgba(226, 96, 75, 0.24);
 }
+.btn-danger:hover:not(:disabled) { background-color: var(--btn-danger-hover); transform: translateY(-2px); }
 
-.btn-danger:hover:not(:disabled) {
-  background-color: var(--btn-danger-hover);
-  transform: translateY(-1px);
-}
-
-/* ================= CARD STYLES (Restrained Elevation, 24px Radius) ================= */
+/* ================= CARDS ================= */
 .card {
   background-color: var(--surface);
   border: 1px solid var(--border-soft);
@@ -637,57 +626,51 @@ actions and the mobile hamburger all share this cluster. */
   position: relative;
 }
 
-.card:hover {
-  box-shadow: var(--shadow-hover);
-}
+.card:hover { box-shadow: var(--shadow-hover); }
 
 .card-header-flex {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: var(--space-4);
+  gap: var(--space-5);
+  margin-bottom: var(--space-5);
+  flex-wrap: wrap;
 }
 
 .card-title {
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
   color: var(--text-primary);
+  letter-spacing: -0.02em;
 }
 
-/* ================= FORM CONTROLS (16px Radius, 50px Min Height) ================= */
+/* ================= FORM CONTROLS — 20px radius, 58px min ================= */
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
-  margin-bottom: 1.25rem;
+  gap: 0.55rem;
+  margin-bottom: var(--space-5);
 }
 
 .form-label {
   font-size: 0.9375rem;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-ink);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: var(--space-3);
 }
 
-.form-label-optional {
-  font-size: 0.8125rem;
-  color: var(--text-muted);
-  font-weight: 400;
-}
+.form-label-optional { font-size: 0.8125rem; color: var(--text-muted); font-weight: 400; }
 
-.input-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
+.input-wrapper { position: relative; display: flex; align-items: center; }
 
 .form-input, .form-select {
   width: 100%;
-  min-height: 50px;
-  padding: 0.75rem 1.15rem;
+  min-height: 58px;
+  padding: 0.9rem 1.25rem;
   background-color: var(--bg-recessed);
   border: 1.5px solid transparent;
   border-radius: var(--radius-lg);
@@ -706,12 +689,10 @@ actions and the mobile hamburger all share this cluster. */
 .form-input:focus, .form-select:focus {
   background-color: var(--field-focus-bg);
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px var(--focus-ring);
+  box-shadow: 0 0 0 4px var(--focus-ring);
 }
 
-.form-input::placeholder {
-  color: var(--text-subtle);
-}
+.form-input::placeholder { color: var(--text-subtle); }
 
 .form-input:disabled, .form-select:disabled {
   opacity: 0.6;
@@ -719,13 +700,8 @@ actions and the mobile hamburger all share this cluster. */
   background-color: var(--field-disabled-bg);
 }
 
-.form-input.has-icon-left, .form-select.has-icon-left {
-  padding-left: 2.85rem;
-}
-
-.form-input.has-icon-right, .form-select.has-icon-right {
-  padding-right: 2.85rem;
-}
+.form-input.has-icon-left, .form-select.has-icon-left { padding-left: 3.1rem; }
+.form-input.has-icon-right, .form-select.has-icon-right { padding-right: 3.1rem; }
 
 .form-input.is-invalid, .form-select.is-invalid {
   border-color: var(--status-needs);
@@ -733,12 +709,12 @@ actions and the mobile hamburger all share this cluster. */
 }
 
 .form-input.is-invalid:focus, .form-select.is-invalid:focus {
-  box-shadow: 0 0 0 3px rgba(200, 106, 80, 0.20);
+  box-shadow: 0 0 0 4px rgba(226, 96, 75, 0.20);
 }
 
 .input-icon-left {
   position: absolute;
-  left: 0.95rem;
+  left: 1.15rem;
   color: var(--text-muted);
   pointer-events: none;
   display: flex;
@@ -748,91 +724,78 @@ actions and the mobile hamburger all share this cluster. */
 
 .input-icon-right {
   position: absolute;
-  right: 0.95rem;
+  /* 44px hit area, centred on the input, with the glyph keeping its original
+     visual position (glyph centre ~27px from the right edge). */
+  right: 0.35rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.75rem;
+  height: 2.75rem;
   color: var(--text-muted);
   display: flex;
   align-items: center;
   justify-content: center;
   background: none;
   border: none;
+  border-radius: var(--radius-md);
   cursor: pointer;
+  transition: color var(--transition-fast), background-color var(--transition-fast);
 }
 
-.form-hint {
-  font-size: 0.8125rem;
-  color: var(--text-muted);
-  margin-top: 0.2rem;
-  line-height: 1.4;
+.input-icon-right:hover {
+  color: var(--text-primary);
+  background-color: var(--surface-subtle);
 }
+
+.input-icon-right:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  color: var(--text-primary);
+}
+
+.form-hint { font-size: 0.8125rem; color: var(--text-muted); margin-top: 0.15rem; line-height: 1.45; }
 
 .form-error {
   display: flex;
   align-items: center;
-  gap: 0.375rem;
+  gap: 0.4rem;
   color: var(--needs-attention-text);
   font-size: 0.8125rem;
   margin-top: 0.25rem;
 }
 
-/* ================= BADGES (High Contrast & Clear Icons) ================= */
+/* ================= BADGES ================= */
 .badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.375rem;
-  padding: 0.3rem 0.75rem;
+  gap: 0.4rem;
+  padding: 0.4rem 0.9rem;
   border-radius: var(--radius-full);
   font-size: 0.8125rem;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1;
   border: 1px solid transparent;
 }
 
-.badge-sm {
-  padding: 0.2rem 0.55rem;
-  font-size: 0.75rem;
-}
+.badge-sm { padding: 0.28rem 0.65rem; font-size: 0.75rem; }
 
-.badge-primary {
-  background-color: var(--primary-soft);
-  color: var(--primary);
-  border-color: rgba(79, 124, 172, 0.2);
-}
+.badge-primary { background-color: var(--primary-soft); color: var(--primary); border-color: rgba(124, 58, 237, 0.22); }
+.badge-success { background-color: var(--good-bg); color: var(--good-text); border-color: var(--good-border); }
+.badge-warning { background-color: var(--moderate-bg); color: var(--moderate-text); border-color: var(--moderate-border); }
+.badge-danger { background-color: var(--needs-attention-bg); color: var(--needs-attention-text); border-color: var(--needs-attention-border); }
+.badge-neutral { background-color: var(--surface-subtle); color: var(--text-secondary); border-color: var(--border); }
 
-.badge-success {
-  background-color: var(--good-bg);
-  color: var(--good-text);
-  border-color: var(--good-border);
-}
-
-.badge-warning {
-  background-color: var(--moderate-bg);
-  color: var(--moderate-text);
-  border-color: var(--moderate-border);
-}
-
-.badge-danger {
-  background-color: var(--needs-attention-bg);
-  color: var(--needs-attention-text);
-  border-color: var(--needs-attention-border);
-}
-
-.badge-neutral {
-  background-color: var(--surface-subtle);
-  color: var(--text-secondary);
-  border-color: var(--border);
-}
-
-/* ================= MODAL STYLES ================= */
+/* ================= MODAL ================= */
 .modal-backdrop {
   position: fixed;
   inset: 0;
   background-color: var(--scrim);
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem;
+  padding: var(--space-5);
   z-index: 100;
   animation: fadeIn 0.2s ease-out;
 }
@@ -848,283 +811,231 @@ actions and the mobile hamburger all share this cluster. */
   animation: scaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.modal-sm { max-width: 420px; }
-.modal-md { max-width: 540px; }
-.modal-lg { max-width: 720px; }
-.modal-xl { max-width: 900px; }
+.modal-sm { max-width: 440px; }
+.modal-md { max-width: 580px; }
+.modal-lg { max-width: 800px; }
+.modal-xl { max-width: 980px; }
 
 .modal-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  padding: 1.75rem 2rem 1rem;
+  gap: var(--space-4);
+  padding: var(--space-7) var(--space-7) var(--space-4);
 }
 
-.modal-title {
-  font-size: 1.35rem;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.modal-subtitle {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  margin-top: 0.25rem;
-}
+.modal-title { font-size: 1.5rem; font-weight: 700; color: var(--text-primary); }
+.modal-subtitle { font-size: 0.9375rem; color: var(--text-muted); margin-top: 0.3rem; }
 
 .modal-close-btn {
-  padding: 0.375rem;
+  padding: 0.5rem;
   color: var(--text-muted);
   border-radius: var(--radius-full);
   transition: all var(--transition-fast);
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
-.modal-close-btn:hover {
-  background-color: var(--surface-subtle);
-  color: var(--text-primary);
-}
+.modal-close-btn:hover { background-color: var(--surface-subtle); color: var(--text-primary); }
 
-.modal-body {
-  padding: 0 2rem 1.75rem;
-}
+.modal-body { padding: 0 var(--space-7) var(--space-7); }
 
 .modal-footer {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 0.75rem;
-  padding: 1.25rem 2rem;
+  gap: var(--space-3);
+  padding: var(--space-5) var(--space-7);
   background-color: var(--surface-subtle);
   border-top: 1px solid var(--border);
   border-radius: 0 0 var(--radius-2xl) var(--radius-2xl);
 }
 
-/* ================= TOAST NOTIFICATIONS ================= */
+/* ================= TOASTS ================= */
 .toast-container {
   position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
+  bottom: var(--space-6);
+  right: var(--space-6);
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: var(--space-3);
   z-index: 1000;
-  max-width: 380px;
+  max-width: 400px;
 }
 
 .toast {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.875rem 1.25rem;
+  gap: 0.85rem;
+  padding: var(--space-4) var(--space-5);
   background-color: var(--surface);
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-modal);
   border: 1px solid var(--border);
-  font-size: 0.9rem;
+  border-left-width: 4px;
+  font-size: 0.9375rem;
   color: var(--text-primary);
   animation: slideInRight 0.25s ease-out;
 }
 
-.toast-success {
-  border-left: 4px solid var(--good);
+.toast-success { border-left-color: var(--good); }
+.toast-warning { border-left-color: var(--moderate); }
+.toast-error { border-left-color: var(--needs-attention); }
+.toast-info { border-left-color: var(--primary); }
+
+.toast-icon { display: flex; align-items: center; flex-shrink: 0; }
+.toast-content { flex: 1; line-height: 1.5; }
+
+.toast-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+  border-radius: var(--radius-xs);
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
 }
 
-.toast-warning {
-  border-left: 4px solid var(--moderate);
-}
+.toast-close:hover { background-color: var(--surface-subtle); color: var(--text-primary); }
 
-.toast-error {
-  border-left: 4px solid var(--needs-attention);
-}
-
-.toast-info {
-  border-left: 4px solid var(--primary);
-}
-
-/* ================= FOOTER STYLES ================= */
+/* ================= FOOTER ================= */
 .footer-section {
   background-color: var(--surface);
   border-top: 1px solid var(--border);
-  padding: 4rem 0 2.5rem;
+  padding: var(--space-16) 0 var(--space-8);
   margin-top: auto;
 }
 
-.footer-container {
-  max-width: var(--max-width-xl);
-  margin: 0 auto;
-  padding: 0 var(--space-6);
-}
+.footer-container { max-width: var(--max-width-xl); margin: 0 auto; padding: 0 var(--space-6); }
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 2fr 1.2fr 1.8fr;
-  gap: 3.5rem;
-  margin-bottom: 3rem;
+  grid-template-columns: 2fr 1fr 1.6fr;
+  gap: var(--space-12);
+  margin-bottom: var(--space-12);
 }
 
 .brand-col .footer-description {
-  margin-top: 1rem;
-  margin-bottom: 1.5rem;
-  font-size: 0.9375rem;
-  line-height: 1.6;
-  max-width: 360px;
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-5);
+  font-size: 0.9875rem;
+  line-height: 1.7;
+  max-width: 380px;
 }
 
 .footer-badge {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.35rem 0.85rem;
+  padding: 0.45rem 1rem;
   background-color: var(--good-bg);
   border: 1px solid var(--good-border);
   border-radius: var(--radius-full);
   font-size: 0.8125rem;
   color: var(--good-text);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .footer-heading {
   font-family: var(--font-display);
   font-size: 1.15rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 1.25rem;
+  margin-bottom: var(--space-5);
 }
 
-.footer-links {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: var(--space-3); }
 
-.footer-links a {
-  color: var(--text-secondary);
-  font-size: 0.9375rem;
-  transition: color var(--transition-fast);
-}
+.footer-links a { color: var(--text-secondary); font-size: 0.9375rem; transition: color var(--transition-fast); }
+.footer-links a:hover { color: var(--primary); }
 
-.footer-links a:hover {
-  color: var(--primary);
-}
+.crisis-note { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: var(--space-4); line-height: 1.6; }
 
-.crisis-note {
-  font-size: 0.875rem;
-  color: var(--text-secondary);
-  margin-bottom: 1rem;
-  line-height: 1.5;
-}
+.crisis-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.9rem; }
 
-.crisis-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.625rem;
-  font-size: 0.875rem;
-}
-
-.crisis-link {
-  color: var(--primary);
-  font-weight: 500;
-}
+.crisis-link { color: var(--primary); font-weight: 600; }
 
 .footer-disclaimer {
   display: flex;
   align-items: flex-start;
-  gap: 1rem;
-  padding: 1.5rem;
+  gap: var(--space-4);
+  padding: var(--space-6);
   background-color: var(--surface-subtle);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  margin-bottom: 2.5rem;
+  margin-bottom: var(--space-8);
 }
 
-.disclaimer-icon {
-  color: var(--moderate);
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.disclaimer-text {
-  font-size: 0.875rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
-}
+.disclaimer-icon { color: var(--moderate); flex-shrink: 0; margin-top: 2px; }
+.disclaimer-text { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.65; }
 
 .footer-bottom {
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 1rem;
-  padding-top: 2rem;
+  gap: var(--space-4);
+  padding-top: var(--space-6);
   border-top: 1px solid var(--border-subtle);
   font-size: 0.875rem;
   color: var(--text-muted);
 }
 
-.footer-bottom-links {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
+.footer-bottom-links { display: flex; align-items: center; gap: var(--space-5); flex-wrap: wrap; }
+
+/* ================= AMBIENT DECORATION ================= */
+.ambient-blobs-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
 }
 
-/* ================= ANIMATIONS & MOTION ================= */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+.ambient-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+  mix-blend-mode: var(--blob-blend, multiply);
+  pointer-events: none;
 }
 
-@keyframes scaleUp {
-  from { opacity: 0; transform: scale(0.96); }
-  to { opacity: 1; transform: scale(1); }
-}
+.ambient-blob-sage { background: radial-gradient(circle, var(--accent-sage) 0%, rgba(143, 184, 168, 0) 70%); }
+.ambient-blob-primary { background: radial-gradient(circle, var(--primary) 0%, rgba(185, 212, 235, 0) 70%); }
+.ambient-blob-cream { background: radial-gradient(circle, var(--moderate) 0%, rgba(243, 229, 212, 0) 70%); }
 
+/* ================= MOTION ================= */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes scaleUp { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
 @keyframes slideInRight {
   from { opacity: 0; transform: translateX(20px); }
   to { opacity: 1; transform: translateX(0); }
 }
-
-@keyframes sheenSweep {
-  from { left: -120%; }
-  to { left: 140%; }
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-
-@keyframes floatSlow {
-  0%, 100% { translate: 0 0; }
-  50% { translate: 0 -10px; }
-}
-
+@keyframes sheenSweep { from { left: -120%; } to { left: 140%; } }
+@keyframes floatSlow { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
 @keyframes driftBlob {
   0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
   33% { transform: translate3d(3%, -4%, 0) scale(1.06); }
   66% { transform: translate3d(-3%, 3%, 0) scale(0.97); }
 }
-
-@keyframes shimmer {
-  from { background-position: -180% 0; }
-  to { background-position: 180% 0; }
-}
-
+@keyframes shimmer { from { background-position: -180% 0; } to { background-position: 180% 0; } }
 @keyframes gradientPan {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
 }
+@keyframes spin { to { transform: rotate(360deg); } }
 
-.animate-fade-in {
-  animation: fadeIn 0.4s ease-out forwards;
-}
+.animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
 
-/* ==========================================================================
-   MODERN POLISH LAYER
-   Frosted chrome, gradient accents, ambient mesh and reveal-on-scroll motion.
-   Everything here is additive and theme-aware.
-   ========================================================================== */
-
-/* ---- Ambient background mesh on every page shell ---- */
+/* Ambient mesh on every page shell */
 .hero-section,
 .auth-page,
 .dashboard-page,
@@ -1137,7 +1048,6 @@ actions and the mobile hamburger all share this cluster. */
   background-color: var(--background);
 }
 
-/* The existing blobs now breathe slowly instead of sitting still */
 .calm-blob,
 .hero-blob-1,
 .hero-blob-2 {
@@ -1145,58 +1055,36 @@ actions and the mobile hamburger all share this cluster. */
   will-change: transform;
 }
 
-.hero-blob-2 {
-  animation-duration: 28s;
-  animation-direction: reverse;
-}
+.hero-blob-2 { animation-duration: 28s; animation-direction: reverse; }
 
-/* ---- Gradient text accent ---- */
-.text-gradient {
-  background-image: var(--brand-gradient);
-  background-size: 220% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  animation: gradientPan 9s ease-in-out infinite;
-}
-
-/* ---- Reveal on scroll (see src/hooks/useReveal.js) ---- */
-/* Uses the independent `translate` property rather than `transform`, so the
-   hover lifts defined on cards still compose with the entrance motion. */
+/* Reveal on scroll (see src/hooks/useReveal.js).
+   Uses the independent `translate` property so card hover lifts still compose. */
 .reveal {
   opacity: 0;
-  translate: 0 18px;
-  transition: opacity 620ms cubic-bezier(0.16, 1, 0.3, 1),
-              translate 620ms cubic-bezier(0.16, 1, 0.3, 1);
+  translate: 0 24px;
+  transition: opacity 640ms cubic-bezier(0.16, 1, 0.3, 1),
+              translate 640ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.reveal.is-visible {
-  opacity: 1;
-  translate: 0 0;
-}
+.reveal.is-visible { opacity: 1; translate: 0 0; }
 
-/* Stagger items inside a grid so they cascade rather than land together */
+/* Stagger grid items so they cascade rather than land together */
+.bento-grid .reveal:nth-child(2),
 .stats-banner-container .reveal:nth-child(2),
-.steps-grid .reveal:nth-child(2),
 .features-grid .reveal:nth-child(2) { transition-delay: 70ms; }
 
+.bento-grid .reveal:nth-child(3),
 .stats-banner-container .reveal:nth-child(3),
-.steps-grid .reveal:nth-child(3),
 .features-grid .reveal:nth-child(3) { transition-delay: 140ms; }
 
+.bento-grid .reveal:nth-child(4),
 .stats-banner-container .reveal:nth-child(4),
 .features-grid .reveal:nth-child(4) { transition-delay: 210ms; }
 
-@media (prefers-reduced-motion: reduce) {
-  .reveal {
-    opacity: 1;
-    translate: 0 0;
-    transition: none;
-  }
-}
+.bento-grid .reveal:nth-child(5) { transition-delay: 280ms; }
+.bento-grid .reveal:nth-child(6) { transition-delay: 350ms; }
 
-/* ---- Loading spinner (ui/Spinner + Button loading state) ---- */
+/* Loading spinner (ui/Spinner + Button loading state) */
 .spinner {
   display: inline-block;
   border-style: solid;
@@ -1206,19 +1094,7 @@ actions and the mobile hamburger all share this cluster. */
   animation: spin 700ms linear infinite;
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  /* Global reduced-motion stills every animation — a frozen spinner reads as
-     broken, so keep a slow rotation that clearly communicates "working". */
-  .spinner {
-    animation-duration: 1.8s !important;
-  }
-}
-
-/* ---- Skeleton shimmer ---- */
+/* Skeleton shimmer */
 .skeleton {
   background-color: var(--surface-subtle);
   background-image: linear-gradient(
@@ -1233,46 +1109,34 @@ actions and the mobile hamburger all share this cluster. */
   animation: shimmer 1.6s linear infinite;
 }
 
-/* ---- Theme-aware custom scrollbar ---- */
+/* ================= SCROLLBAR ================= */
 * {
   scrollbar-width: thin;
   scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
 }
 
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--scrollbar-track);
-}
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: var(--scrollbar-track); }
 
 ::-webkit-scrollbar-thumb {
   background-color: var(--scrollbar-thumb);
   border-radius: var(--radius-full);
-  border: 2px solid transparent;
+  border: 3px solid transparent;
   background-clip: content-box;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background-color: var(--scrollbar-thumb-hover);
-}
+::-webkit-scrollbar-thumb:hover { background-color: var(--scrollbar-thumb-hover); }
 
-/* ---- Selection tint ---- */
-::selection {
-  background-color: var(--primary-glow);
-  color: var(--text-ink);
-}
+::selection { background-color: var(--primary-glow); color: var(--text-ink); }
 
-/* ---- Theme toggle button (Navbar) ---- */
+/* ================= THEME TOGGLE ================= */
 .theme-toggle {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 46px;
+  height: 46px;
   border-radius: var(--radius-full);
   background-color: var(--surface);
   border: 1px solid var(--border);
@@ -1286,24 +1150,14 @@ actions and the mobile hamburger all share this cluster. */
   color: var(--primary);
   border-color: var(--primary);
   background-color: var(--primary-soft);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
-.theme-toggle svg {
-  transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1), opacity 250ms ease;
-}
+.theme-toggle svg { transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1); }
+.theme-toggle:active svg { transform: rotate(35deg) scale(0.9); }
 
-.theme-toggle:active svg {
-  transform: rotate(35deg) scale(0.9);
-}
-
-/* Button text should not be selectable mid-transition */
-.btn {
-  -webkit-tap-highlight-color: transparent;
-}/* ---- Card chrome: gradient hairline + refined elevation ---- */
+/* ================= CARD CHROME ================= */
 .stat-card,
-.score-summary-card,
-.score-trend-card,
 .recent-assessments-card,
 .history-entry-card,
 .history-filter-card,
@@ -1314,15 +1168,14 @@ actions and the mobile hamburger all share this cluster. */
 .result-card-hero,
 .suggestions-card,
 .observation-card,
-.auth-card {
+.auth-card,
+.score-summary-card {
   position: relative;
 }
 
-/* Clipping is what makes a full-width hairline follow the rounded top corners.
-   The chart card is deliberately excluded: it draws tooltips and edge dots
-   outside its own box, so it must not clip. */
+/* Clipping is what makes a full-width accent follow the rounded top corners.
+   The chart card is excluded: it draws tooltips outside its own box. */
 .stat-card,
-.score-summary-card,
 .recent-assessments-card,
 .history-entry-card,
 .history-filter-card,
@@ -1333,11 +1186,12 @@ actions and the mobile hamburger all share this cluster. */
 .result-card-hero,
 .suggestions-card,
 .observation-card,
-.auth-card {
+.auth-card,
+.score-summary-card {
   overflow: hidden;
 }
 
-/* Hero-level cards keep a permanent, full-bleed brand hairline on the top edge */
+/* Hero-level cards carry a permanent accent rail on the top edge */
 .assessment-card-main::before,
 .result-card-hero::before,
 .auth-card::before,
@@ -1345,23 +1199,20 @@ actions and the mobile hamburger all share this cluster. */
   content: '';
   position: absolute;
   inset: 0 0 auto 0;
-  height: 3px;
-  background: var(--brand-gradient);
-  opacity: 0.85;
+  height: 4px;
+  background-image: var(--bento-gradient);
 }
 
-/* Inset accent for the unclipped chart card — reads as intentional, and its
-   rounded ends mean it never needs to be cropped by the card's corners. */
+/* Inset accent for the unclipped chart card */
 .score-trend-card::before {
   content: '';
   position: absolute;
   top: 0;
   left: var(--space-8);
   right: var(--space-8);
-  height: 3px;
+  height: 4px;
   border-radius: 0 0 var(--radius-full) var(--radius-full);
-  background: var(--brand-gradient);
-  opacity: 0.85;
+  background-image: var(--bento-gradient);
 }
 
 /* Smaller interactive cards reveal theirs on hover */
@@ -1374,8 +1225,8 @@ actions and the mobile hamburger all share this cluster. */
   content: '';
   position: absolute;
   inset: 0 0 auto 0;
-  height: 2px;
-  background: var(--brand-gradient);
+  height: 3px;
+  background-image: var(--bento-gradient);
   opacity: 0;
   transition: opacity var(--transition-normal);
 }
@@ -1389,14 +1240,13 @@ actions and the mobile hamburger all share this cluster. */
   opacity: 1;
 }
 
-/* Auth card reads as a pane of frosted glass floating over the mesh */
+/* Auth card reads as a pane of frosted glass over the mesh */
 .auth-card {
   background-color: var(--glass-nav-bg);
   backdrop-filter: blur(18px) saturate(150%);
   -webkit-backdrop-filter: blur(18px) saturate(150%);
 }
 
-/* Lifted elevation on the primary dashboard hero cards */
 .score-summary-card:hover,
 .score-trend-card:hover,
 .result-card-hero:hover,
@@ -1404,8 +1254,13 @@ actions and the mobile hamburger all share this cluster. */
   box-shadow: var(--shadow-hover);
 }
 
-/* Reduced Motion Support */
+/* ================= REDUCED MOTION ================= */
 @media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; translate: 0 0; transition: none; }
+
+  /* A frozen spinner reads as broken, so keep a slow rotation */
+  .spinner { animation-duration: 1.8s !important; }
+
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;

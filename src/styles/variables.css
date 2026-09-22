@@ -2,62 +2,103 @@
   color-scheme: light;
 
   /* ==========================================================================
-     MindPulse Design System: "Calm Ground" Tokens
-     A warm, quiet, human sanctuary for student wellbeing
+     MindPulse Design System — "Bento Vivid"
+     Modular bento tiles, vivid saturated blocks, chunky radii, generous space.
+     --------------------------------------------------------------------------
+     Token NAMES are stable — component CSS reads these, never raw hex. That
+     means the whole look can be re-tuned from this one file, which is how the
+     previous theme was replaced without touching 20 stylesheets.
      ========================================================================== */
 
-  /* Canvas Tokens */
-  --bg-base: #FAF7F2;          /* Non-glare warm linen canvas */
-  --background: #FAF7F2;       /* Alias */
-  --bg-surface: #FFFFFF;       /* Pure white card & dialog surface */
-  --surface: #FFFFFF;          /* Alias */
-  --bg-recessed: #F4EFEA;      /* Recessed well ground for resting inputs */
-  --surface-subtle: #F4EFEA;   /* Alias */
-  --surface-muted: #EFE9E1;    /* Quiet secondary well */
+  /* ---------- Canvas ---------- */
+  --bg-base: #F6F6FB;          /* cool near-white; lets vivid tiles pop */
+  --background: #F6F6FB;
+  --bg-surface: #FFFFFF;
+  --surface: #FFFFFF;
+  --bg-recessed: #EEEEF6;
+  --surface-subtle: #EEEEF6;
+  --surface-muted: #E6E6F1;
 
-  /* Text & Ink Tokens (WCAG 2.2 AA Contrast >= 4.5:1) */
-  --text-ink: #1A2430;         /* Primary ink for headings (12.8:1) */
-  --text-primary: #1A2430;     /* Alias */
-  --text-body: #424E5E;        /* Body slate (7.2:1) */
-  --text-secondary: #424E5E;   /* Alias */
-  --text-muted: #687687;       /* Muted slate for captions & timestamps (4.7:1) */
-  --text-subtle: #8A96A4;      /* Tertiary placeholders */
+  /* ---------- Text & ink (all ≥ 4.5:1 on their intended surface) ---------- */
+  --text-ink: #0E1220;         /* headings (16.8:1 on #F6F6FB) */
+  --text-primary: #0E1220;
+  --text-body: #42465A;        /* body copy (8.6:1) */
+  --text-secondary: #42465A;
+  --text-muted: #63687F;       /* captions (5.3:1) */
+  --text-subtle: #8B90A6;      /* placeholders (decorative only) */
   --text-inverse: #FFFFFF;
 
-  /* Brand Tokens */
-  --primary: #3D6E99;          /* Harbor blue anchor (5.2:1 vs white) */
-  --primary-hover: #31587C;
-  --primary-active: #274763;
-  --primary-soft: #E8F0F7;     /* Soft blue tint */
-  --primary-subtle: rgba(61, 110, 153, 0.08);
-  --primary-glow: rgba(61, 110, 153, 0.20);
+  /* ---------- Brand: vivid violet ---------- */
+  --primary: #7C3AED;          /* violet-600 (5.0:1 vs white) */
+  --primary-hover: #6D28D9;
+  --primary-active: #5B21B6;
+  --primary-soft: #F1EBFE;
+  --primary-subtle: rgba(124, 58, 237, 0.08);
+  --primary-glow: rgba(124, 58, 237, 0.22);
 
-  --accent-sage: #6B9E87;      /* Botanical sage (3.8:1 vs white) */
-  --accent-sage-hover: #5A8773;
-  --accent-sage-soft: #EBF4F0; /* Restful zone highlight */
-  --sage-soft: #EBF4F0;        /* Alias */
-  --accent-sage-subtle: rgba(107, 158, 135, 0.12);
+  /* ---------- Secondary brand: electric cyan (kept for alias stability) ---------- */
+  --accent-sage: #0891B2;      /* cyan-600 */
+  --accent-sage-hover: #0E7490;
+  --accent-sage-soft: #E0F5FA;
+  --sage-soft: #E0F5FA;
+  --accent-sage-subtle: rgba(8, 145, 178, 0.12);
 
-  /* Calibrated Wellbeing Status Scales (Zero Alarmist Colors) */
-  --status-good: #4E8F6C;      /* Good / Balanced (4.6:1) */
-  --good: #4E8F6C;             /* Alias */
-  --good-bg: #EFF7F2;
-  --good-border: #C8E5D5;
-  --good-text: #23583C;
+  /* ==========================================================================
+     Vivid bento tile palette
+     Each hue ships a solid (for icon/accents), a soft wash (tile background)
+     and an ink (readable text on the wash). Use these for bento tiles so the
+     grid reads as colourful blocks rather than a wall of white cards.
+     ========================================================================== */
+  --tile-violet: #7C3AED;
+  --tile-violet-soft: #F1EBFE;
+  --tile-violet-ink: #4C1D95;
 
-  --status-mod: #C98638;       /* Moderate (4.8:1) */
-  --moderate: #C98638;         /* Alias */
-  --moderate-bg: #FDF7EE;
-  --moderate-border: #F3DCB7;
-  --moderate-text: #7A4B13;
+  --tile-blue: #2563EB;
+  --tile-blue-soft: #E7EEFE;
+  --tile-blue-ink: #1E3A8A;
 
-  --status-needs: #C86A50;     /* Needs Attention (soft terracotta; strictly zero #FF0000) */
-  --needs-attention: #C86A50;  /* Alias */
-  --needs-attention-bg: #FAF2EF;
-  --needs-attention-border: #ECC7BC;
-  --needs-attention-text: #853A26;
+  --tile-cyan: #0891B2;
+  --tile-cyan-soft: #E0F5FA;
+  --tile-cyan-ink: #155E75;
 
-  /* Semantic Aliases */
+  --tile-emerald: #059669;
+  --tile-emerald-soft: #E3F6EE;
+  --tile-emerald-ink: #065F46;
+
+  --tile-amber: #D97706;
+  --tile-amber-soft: #FDF3E3;
+  --tile-amber-ink: #92400E;
+
+  --tile-rose: #E11D48;
+  --tile-rose-soft: #FDE9EE;
+  --tile-rose-ink: #9F1239;
+
+  --tile-indigo: #4F46E5;
+  --tile-indigo-soft: #EBEBFE;
+  --tile-indigo-ink: #312E81;
+
+  /* ---------- Wellbeing status scales ---------- */
+  /* Deliberately no alarm red anywhere: "Needs Attention" is a warm coral,
+     because a mental-health check-in should never look like an error state. */
+  --status-good: #059669;
+  --good: #059669;
+  --good-bg: #E3F6EE;
+  --good-border: #A7E8C8;
+  --good-text: #065F46;
+
+  --status-mod: #D97706;
+  --moderate: #D97706;
+  --moderate-bg: #FDF3E3;
+  --moderate-border: #F5D9A8;
+  --moderate-text: #92400E;
+
+  --status-needs: #E2604B;
+  --needs-attention: #E2604B;
+  --needs-attention-bg: #FDEDE8;
+  --needs-attention-border: #F5C9BC;
+  --needs-attention-text: #9A3412;
+
+  /* ---------- Semantic aliases (kept for existing call sites) ---------- */
   --success: var(--status-good);
   --success-bg: var(--good-bg);
   --success-border: var(--good-border);
@@ -73,247 +114,286 @@
   --danger-border: var(--needs-attention-border);
   --danger-text: var(--needs-attention-text);
 
-  /* Borders & Focus */
-  --border-soft: #E8E2D9;      /* Organic hairline border */
-  --border: #E8E2D9;           /* Alias */
-  --border-subtle: rgba(26, 36, 48, 0.05);
-  --border-strong: rgba(26, 36, 48, 0.14);
-  --focus-ring: rgba(61, 110, 153, 0.35); /* 3px focus indicator */
+  /* ---------- Borders & focus ---------- */
+  --border-soft: #E5E5F0;
+  --border: #E5E5F0;
+  --border-subtle: rgba(14, 18, 32, 0.06);
+  --border-strong: rgba(14, 18, 32, 0.14);
+  --focus-ring: rgba(124, 58, 237, 0.32);
 
-  /* Typography Stacks */
-  --font-display: 'Fraunces', Georgia, serif;
-  --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* ---------- Typography ---------- */
+  --font-display: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-sans: var(--font-body);
 
-  /* Spacing Scale (8-point harmonic rhythm: 4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80) */
-  --space-1: 0.25rem;  /* 4px */
-  --space-2: 0.5rem;   /* 8px */
-  --space-3: 0.75rem;  /* 12px */
-  --space-4: 1rem;     /* 16px */
-  --space-5: 1.25rem;  /* 20px */
-  --space-6: 1.5rem;   /* 24px */
-  --space-8: 2rem;     /* 32px */
-  --space-10: 2.5rem;  /* 40px */
-  --space-12: 3rem;    /* 48px */
-  --space-16: 4rem;    /* 64px */
-  --space-20: 5rem;    /* 80px */
+  /* ---------- Spacing (spacious — previously the layout read cramped) ---------- */
+  --space-1: 0.25rem;   /*  4px */
+  --space-2: 0.5rem;    /*  8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.5rem;    /* 24px  (was 20) */
+  --space-6: 2rem;      /* 32px  (was 24) */
+  --space-7: 2.5rem;    /* 40px  (new) */
+  --space-8: 3rem;      /* 48px  (was 32) */
+  --space-10: 3.5rem;   /* 56px  (was 40) */
+  --space-12: 4.5rem;   /* 72px  (was 48) */
+  --space-16: 6rem;     /* 96px  (was 64) */
+  --space-20: 7.5rem;   /* 120px (was 80) */
+  --space-24: 10rem;    /* 160px (new) */
 
-  /* Border Radii */
-  --radius-xs: 6px;
-  --radius-sm: 8px;    /* Status badges & tooltips */
-  --radius-md: 12px;   /* Dropdowns & secondary controls */
-  --radius-lg: 16px;   /* Form inputs, selects & slider cards */
-  --radius-xl: 24px;   /* Main content cards, dialogs & containers */
-  --radius-2xl: 28px;
-  --radius-full: 9999px; /* Pill buttons & chips */
+  /* ---------- Radii: chunky, bento-style ---------- */
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;    /* main bento tiles */
+  --radius-2xl: 36px;   /* hero panels */
+  --radius-3xl: 44px;   /* full-bleed feature tiles */
+  --radius-full: 9999px;
 
-  /* Shadows & Atmospheric Elevation */
+  /* ---------- Elevation ---------- */
   --shadow-flat: none;
-  --shadow-xs: 0 1px 3px rgba(26, 36, 48, 0.04);
-  --shadow-sm: 0 2px 8px rgba(26, 36, 48, 0.04);
-  --shadow-card: 0 4px 20px -2px rgba(26, 36, 48, 0.05), 0 1px 4px rgba(26, 36, 48, 0.02); /* Card rest */
+  --shadow-xs: 0 1px 2px rgba(14, 18, 32, 0.05);
+  --shadow-sm: 0 2px 8px rgba(14, 18, 32, 0.06);
+  --shadow-card: 0 6px 24px -8px rgba(14, 18, 32, 0.10), 0 2px 6px rgba(14, 18, 32, 0.03);
   --shadow-md: var(--shadow-card);
-  --shadow-hover: 0 10px 30px -4px rgba(26, 36, 48, 0.08), 0 2px 8px rgba(26, 36, 48, 0.03); /* Floating */
+  --shadow-hover: 0 20px 46px -14px rgba(14, 18, 32, 0.20), 0 6px 14px rgba(14, 18, 32, 0.05);
   --shadow-lg: var(--shadow-hover);
-  --shadow-modal: 0 20px 48px -8px rgba(26, 36, 48, 0.12), 0 4px 16px rgba(26, 36, 48, 0.05); /* Modal */
+  --shadow-modal: 0 32px 72px -16px rgba(14, 18, 32, 0.26), 0 8px 22px rgba(14, 18, 32, 0.08);
   --shadow-xl: var(--shadow-modal);
-  --shadow-diffuse: 0 4px 24px rgba(26, 36, 48, 0.06);
+  --shadow-diffuse: 0 8px 32px rgba(14, 18, 32, 0.08);
   --shadow-soft: var(--shadow-diffuse);
+  --shadow-tile: 0 12px 32px -12px rgba(124, 58, 237, 0.30);
 
-  /* Transitions & Motion */
+  /* ---------- Motion ---------- */
   --transition-fast: 150ms ease-out;
   --transition-normal: 250ms ease-out;
-  --transition-gentle: 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-gentle: 320ms cubic-bezier(0.16, 1, 0.3, 1);
   --transition-breath: 1200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
-  /* Responsive Container Widths */
+  /* ---------- Layout ---------- */
   --max-width-sm: 640px;
   --max-width-md: 768px;
   --max-width-lg: 1024px;
-  --max-width-xl: 1200px;
+  --max-width-xl: 1280px;   /* was 1200 — more room so tiles can breathe */
+  --max-width-2xl: 1440px;
+
+  /* ---------- Bento grid ---------- */
+  --bento-gap: 1.5rem;      /* 24px between tiles */
+  --bento-gap-lg: 2rem;     /* 32px on wide viewports */
+  --bento-radius: var(--radius-xl);
 
   /* ==========================================================================
-     Semantic Surface & Component Tokens
-     Every component reads these instead of literal colors, so the whole UI
-     can be re-themed (light / dark) from one place.
+     Semantic surface & component tokens
+     Components read these instead of literals so both themes come from here.
      ========================================================================== */
 
-  /* Text that sits on a filled brand/status surface stays light in both themes */
   --on-primary: #FFFFFF;
 
-  /* Raised / hover surface used when a card or field lifts on interaction */
   --surface-elevated: #FFFFFF;
-  --surface-hover: #FAF6F2;
+  --surface-hover: #F4F4FA;
 
   /* Form field interaction states */
-  --field-hover-bg: #FAF6F2;
-  --field-hover-border: #DDD6CB;
+  --field-hover-bg: #F4F4FA;
+  --field-hover-border: #D6D6E4;
   --field-focus-bg: #FFFFFF;
-  --field-disabled-bg: #F0EAE3;
-  --field-invalid-bg: #FFFDFD;
+  --field-disabled-bg: #E9E9F2;
+  --field-invalid-bg: #FFFBF9;
 
   /* Button interaction shades */
-  --btn-soft-hover: #DCE8F2;
-  --btn-danger-bg: #FBEBE7;
-  --btn-danger-hover: #F6D9D2;
+  --btn-soft-hover: #E4D9FC;
+  --btn-danger-bg: #FDEDE8;
+  --btn-danger-hover: #FADDD4;
 
   /* Range slider hardware */
-  --track-bg: rgba(31, 42, 55, 0.08);
+  --track-bg: rgba(14, 18, 32, 0.10);
   --thumb-bg: #FFFFFF;
-  --thumb-shadow: 0 2px 8px rgba(31, 42, 55, 0.15);
-  --thumb-shadow-hover: 0 4px 12px rgba(31, 42, 55, 0.2);
-  --gauge-track: rgba(31, 42, 55, 0.08);
+  --thumb-shadow: 0 2px 10px rgba(14, 18, 32, 0.18);
+  --thumb-shadow-hover: 0 6px 18px rgba(14, 18, 32, 0.22);
+  --gauge-track: rgba(14, 18, 32, 0.08);
 
   /* Overlays & inverted surfaces */
-  --scrim: rgba(31, 42, 55, 0.45);
-  --tooltip-bg: #1A2430;
-  --tooltip-text: #F7F4F0;
+  --scrim: rgba(11, 13, 22, 0.55);
+  --tooltip-bg: #0E1220;
+  --tooltip-text: #F6F6FB;
 
-  /* Frosted navigation chrome */
-  --glass-nav-bg: rgba(250, 247, 242, 0.72);
-  --glass-border: rgba(255, 255, 255, 0.55);
+  /* Frosted chrome */
+  --glass-nav-bg: rgba(246, 246, 251, 0.78);
+  --glass-border: rgba(255, 255, 255, 0.6);
 
-  /* Brand gradient used for accents, hairlines and filled buttons */
-  --brand-gradient: linear-gradient(135deg, #3D6E99 0%, #5B90A8 48%, #6B9E87 100%);
-  --brand-gradient-soft: linear-gradient(135deg, #E8F0F7 0%, #EBF4F0 100%);
+  /* Brand gradients */
+  --brand-gradient: linear-gradient(120deg, #7C3AED 0%, #4F46E5 45%, #0891B2 100%);
+  --brand-gradient-soft: linear-gradient(135deg, #F1EBFE 0%, #E0F5FA 100%);
+  --bento-gradient: linear-gradient(140deg, #7C3AED 0%, #4F46E5 55%, #2563EB 100%);
 
-  /* Ambient background mesh blooms */
-  --mesh-1: radial-gradient(circle at 18% 12%, rgba(185, 212, 235, 0.55) 0%, rgba(185, 212, 235, 0) 62%);
-  --mesh-2: radial-gradient(circle at 82% 8%, rgba(207, 231, 219, 0.55) 0%, rgba(207, 231, 219, 0) 60%);
-  --mesh-3: radial-gradient(circle at 62% 92%, rgba(243, 229, 212, 0.6) 0%, rgba(243, 229, 212, 0) 60%);
+  /* Ambient background mesh */
+  --mesh-1: radial-gradient(circle at 14% 8%, rgba(124, 58, 237, 0.20) 0%, rgba(124, 58, 237, 0) 60%);
+  --mesh-2: radial-gradient(circle at 86% 6%, rgba(8, 145, 178, 0.16) 0%, rgba(8, 145, 178, 0) 58%);
+  --mesh-3: radial-gradient(circle at 60% 96%, rgba(217, 119, 6, 0.10) 0%, rgba(217, 119, 6, 0) 58%);
 
-  /* Large decorative blobs used behind hero / auth cards */
-  --blob-a: radial-gradient(circle, rgba(230, 238, 246, 0.8) 0%, rgba(232, 242, 237, 0.6) 100%);
-  --blob-b: radial-gradient(circle, rgba(232, 242, 237, 0.8) 0%, rgba(250, 247, 242, 0.5) 100%);
+  /* Large decorative blobs */
+  --blob-a: radial-gradient(circle, rgba(124, 58, 237, 0.34) 0%, rgba(8, 145, 178, 0.20) 100%);
+  --blob-b: radial-gradient(circle, rgba(8, 145, 178, 0.28) 0%, rgba(246, 246, 251, 0.1) 100%);
   --blob-blend: multiply;
 
   /* Scrollbar */
   --scrollbar-track: transparent;
-  --scrollbar-thumb: rgba(61, 110, 153, 0.28);
-  --scrollbar-thumb-hover: rgba(61, 110, 153, 0.45);
+  --scrollbar-thumb: rgba(124, 58, 237, 0.26);
+  --scrollbar-thumb-hover: rgba(124, 58, 237, 0.44);
 
-  /* Highlight sweep used on primary buttons & gradient text */
-  --sheen: rgba(255, 255, 255, 0.28);
+  /* Highlight sweep */
+  --sheen: rgba(255, 255, 255, 0.32);
 }
 
 /* ==========================================================================
-   Dark Theme — "Calm Night"
-   A deep, warm-ink evening companion to Calm Ground. Never pure black, and
-   zero alarmist reds, so the sanctuary feel holds after sunset.
+   Dark theme — "Vivid Night"
+   Deep ink canvas so the vivid tiles stay saturated instead of washing out.
    ========================================================================== */
 [data-theme='dark'] {
   color-scheme: dark;
 
-  /* Canvas Tokens */
-  --bg-base: #12171E;
-  --background: #12171E;
-  --bg-surface: #1A2129;
-  --surface: #1A2129;
-  --bg-recessed: #212932;
-  --surface-subtle: #212932;
-  --surface-muted: #273040;
+  /* Canvas */
+  --bg-base: #0B0D16;
+  --background: #0B0D16;
+  --bg-surface: #141822;
+  --surface: #141822;
+  --bg-recessed: #1C2130;
+  --surface-subtle: #1C2130;
+  --surface-muted: #232939;
 
-  /* Text & Ink Tokens */
-  --text-ink: #F1EFEA;
-  --text-primary: #F1EFEA;
-  --text-body: #C2CBD6;
-  --text-secondary: #C2CBD6;
-  --text-muted: #94A2B1;
-  --text-subtle: #6E7C8B;
-  --text-inverse: #12171E;
+  /* Text & ink */
+  --text-ink: #F5F6FB;
+  --text-primary: #F5F6FB;
+  --text-body: #BFC5D6;
+  --text-secondary: #BFC5D6;
+  --text-muted: #959CB2;
+  --text-subtle: #6E7488;
+  --text-inverse: #0B0D16;
 
-  /* Brand Tokens */
-  --primary: #7FB2DE;
-  --primary-hover: #9AC5EA;
-  --primary-active: #6EA0CC;
-  --primary-soft: #1E2E3D;
-  --primary-subtle: rgba(127, 178, 222, 0.12);
-  --primary-glow: rgba(127, 178, 222, 0.26);
+  /* Brand */
+  --primary: #A78BFA;          /* violet-400 — vivid but readable on ink */
+  --primary-hover: #C4B5FD;
+  --primary-active: #8B5CF6;
+  --primary-soft: #241D3D;
+  --primary-subtle: rgba(167, 139, 250, 0.14);
+  --primary-glow: rgba(167, 139, 250, 0.30);
 
-  --accent-sage: #7FBF9F;
-  --accent-sage-hover: #96D0B3;
-  --accent-sage-soft: #1B2A25;
-  --sage-soft: #1B2A25;
-  --accent-sage-subtle: rgba(127, 191, 159, 0.16);
+  --accent-sage: #22D3EE;
+  --accent-sage-hover: #67E8F9;
+  --accent-sage-soft: #102A33;
+  --sage-soft: #102A33;
+  --accent-sage-subtle: rgba(34, 211, 238, 0.16);
 
-  /* Muted wellbeing status scales for dark surfaces */
-  --status-good: #6FBF92;
-  --good: #6FBF92;
-  --good-bg: #15241D;
-  --good-border: #2E4E3D;
-  --good-text: #A6E0C2;
+  /* Bento tiles on dark — deeper washes so the hue still reads */
+  --tile-violet: #A78BFA;
+  --tile-violet-soft: #221C3A;
+  --tile-violet-ink: #DDD2FF;
 
-  --status-mod: #DFA45C;
-  --moderate: #DFA45C;
-  --moderate-bg: #2A2116;
-  --moderate-border: #4C3B21;
-  --moderate-text: #F0CD9A;
+  --tile-blue: #60A5FA;
+  --tile-blue-soft: #16233D;
+  --tile-blue-ink: #CFE0FF;
 
-  --status-needs: #E08A70;
-  --needs-attention: #E08A70;
-  --needs-attention-bg: #2B1E1A;
-  --needs-attention-border: #4C3129;
-  --needs-attention-text: #F3C0AE;
+  --tile-cyan: #22D3EE;
+  --tile-cyan-soft: #102B33;
+  --tile-cyan-ink: #B6EDF7;
 
-  /* Borders & Focus */
-  --border-soft: #2C3540;
-  --border: #2C3540;
-  --border-subtle: rgba(241, 239, 234, 0.07);
-  --border-strong: rgba(241, 239, 234, 0.18);
-  --focus-ring: rgba(127, 178, 222, 0.4);
+  --tile-emerald: #34D399;
+  --tile-emerald-soft: #102C24;
+  --tile-emerald-ink: #B2F0D6;
 
-  /* Elevation reads as depth, not light, on dark surfaces */
-  --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.4);
-  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.35);
-  --shadow-card: 0 8px 28px -6px rgba(0, 0, 0, 0.55), 0 1px 3px rgba(0, 0, 0, 0.4);
-  --shadow-hover: 0 16px 40px -8px rgba(0, 0, 0, 0.62), 0 2px 8px rgba(0, 0, 0, 0.4);
-  --shadow-modal: 0 28px 64px -12px rgba(0, 0, 0, 0.7), 0 6px 20px rgba(0, 0, 0, 0.45);
-  --shadow-diffuse: 0 6px 28px rgba(0, 0, 0, 0.4);
+  --tile-amber: #FBBF24;
+  --tile-amber-soft: #2E2413;
+  --tile-amber-ink: #FBE3A8;
 
-  /* Semantic Surface & Component Tokens */
-  --on-primary: #0E141A;
+  --tile-rose: #FB7185;
+  --tile-rose-soft: #311B24;
+  --tile-rose-ink: #FFD0D9;
 
-  --surface-elevated: #222B35;
-  --surface-hover: #27313C;
+  --tile-indigo: #818CF8;
+  --tile-indigo-soft: #1D2044;
+  --tile-indigo-ink: #D3D7FF;
 
-  --field-hover-bg: #27313C;
-  --field-hover-border: #3A4551;
-  --field-focus-bg: #222B35;
-  --field-disabled-bg: #1B222A;
-  --field-invalid-bg: #241A18;
+  /* Status */
+  --status-good: #34D399;
+  --good: #34D399;
+  --good-bg: #102C24;
+  --good-border: #2C5545;
+  --good-text: #B2F0D6;
 
-  --btn-soft-hover: #25384A;
-  --btn-danger-bg: #2E201C;
-  --btn-danger-hover: #3A2723;
+  --status-mod: #FBBF24;
+  --moderate: #FBBF24;
+  --moderate-bg: #2E2413;
+  --moderate-border: #574420;
+  --moderate-text: #FBE3A8;
 
-  --track-bg: rgba(241, 239, 234, 0.14);
-  --thumb-bg: #1A2129;
-  --thumb-shadow: 0 2px 10px rgba(0, 0, 0, 0.55);
-  --thumb-shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.6);
-  --gauge-track: rgba(241, 239, 234, 0.1);
+  --status-needs: #FB8F73;
+  --needs-attention: #FB8F73;
+  --needs-attention-bg: #2E1D19;
+  --needs-attention-border: #5A342B;
+  --needs-attention-text: #FCD0BF;
 
-  --scrim: rgba(6, 9, 13, 0.68);
-  --tooltip-bg: #EDF1F5;
-  --tooltip-text: #14191F;
+  /* Borders & focus */
+  --border-soft: #262C3C;
+  --border: #262C3C;
+  --border-subtle: rgba(245, 246, 251, 0.07);
+  --border-strong: rgba(245, 246, 251, 0.18);
+  --focus-ring: rgba(167, 139, 250, 0.42);
 
-  --glass-nav-bg: rgba(18, 23, 30, 0.72);
-  --glass-border: rgba(255, 255, 255, 0.08);
+  /* Elevation */
+  --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.45);
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.40);
+  --shadow-card: 0 10px 32px -8px rgba(0, 0, 0, 0.60), 0 2px 6px rgba(0, 0, 0, 0.40);
+  --shadow-hover: 0 22px 52px -14px rgba(0, 0, 0, 0.70), 0 6px 16px rgba(0, 0, 0, 0.45);
+  --shadow-modal: 0 36px 80px -18px rgba(0, 0, 0, 0.78), 0 10px 26px rgba(0, 0, 0, 0.50);
+  --shadow-diffuse: 0 8px 34px rgba(0, 0, 0, 0.50);
+  --shadow-tile: 0 14px 38px -14px rgba(167, 139, 250, 0.42);
 
-  --brand-gradient: linear-gradient(135deg, #5B90C4 0%, #6FA9BE 48%, #7FBF9F 100%);
-  --brand-gradient-soft: linear-gradient(135deg, #1E2E3D 0%, #1B2A25 100%);
+  /* Semantic surface & component tokens */
+  --on-primary: #10091F;
 
-  --mesh-1: radial-gradient(circle at 18% 12%, rgba(61, 110, 153, 0.34) 0%, rgba(61, 110, 153, 0) 60%);
-  --mesh-2: radial-gradient(circle at 82% 8%, rgba(107, 158, 135, 0.28) 0%, rgba(107, 158, 135, 0) 58%);
-  --mesh-3: radial-gradient(circle at 62% 92%, rgba(201, 134, 56, 0.16) 0%, rgba(201, 134, 56, 0) 58%);
+  --surface-elevated: #1E2332;
+  --surface-hover: #242A3B;
 
-  --blob-a: radial-gradient(circle, rgba(61, 110, 153, 0.5) 0%, rgba(107, 158, 135, 0.3) 100%);
-  --blob-b: radial-gradient(circle, rgba(107, 158, 135, 0.42) 0%, rgba(18, 23, 30, 0.2) 100%);
-  /* Additive blending keeps the blooms glowing instead of muddying to black */
+  --field-hover-bg: #242A3B;
+  --field-hover-border: #384054;
+  --field-focus-bg: #1E2332;
+  --field-disabled-bg: #171B26;
+  --field-invalid-bg: #1F1614;
+
+  --btn-soft-hover: #2E2450;
+  --btn-danger-bg: #2C1C18;
+  --btn-danger-hover: #3A2520;
+
+  --track-bg: rgba(245, 246, 251, 0.16);
+  --thumb-bg: #141822;
+  --thumb-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+  --thumb-shadow-hover: 0 6px 18px rgba(0, 0, 0, 0.65);
+  --gauge-track: rgba(245, 246, 251, 0.10);
+
+  --scrim: rgba(5, 6, 11, 0.72);
+  --tooltip-bg: #EEF0F7;
+  --tooltip-text: #10131C;
+
+  --glass-nav-bg: rgba(11, 13, 22, 0.76);
+  --glass-border: rgba(255, 255, 255, 0.10);
+
+  --brand-gradient: linear-gradient(120deg, #A78BFA 0%, #818CF8 45%, #22D3EE 100%);
+  --brand-gradient-soft: linear-gradient(135deg, #241D3D 0%, #102A33 100%);
+  --bento-gradient: linear-gradient(140deg, #A78BFA 0%, #818CF8 55%, #60A5FA 100%);
+
+  --mesh-1: radial-gradient(circle at 14% 8%, rgba(124, 58, 237, 0.30) 0%, rgba(124, 58, 237, 0) 58%);
+  --mesh-2: radial-gradient(circle at 86% 6%, rgba(34, 211, 238, 0.20) 0%, rgba(34, 211, 238, 0) 56%);
+  --mesh-3: radial-gradient(circle at 60% 96%, rgba(251, 191, 36, 0.12) 0%, rgba(251, 191, 36, 0) 56%);
+
+  --blob-a: radial-gradient(circle, rgba(124, 58, 237, 0.50) 0%, rgba(34, 211, 238, 0.28) 100%);
+  --blob-b: radial-gradient(circle, rgba(34, 211, 238, 0.34) 0%, rgba(11, 13, 22, 0.2) 100%);
+  /* Additive blending keeps blooms glowing rather than muddying to black */
   --blob-blend: screen;
 
   --scrollbar-track: transparent;
-  --scrollbar-thumb: rgba(127, 178, 222, 0.3);
-  --scrollbar-thumb-hover: rgba(127, 178, 222, 0.48);
+  --scrollbar-thumb: rgba(167, 139, 250, 0.32);
+  --scrollbar-thumb-hover: rgba(167, 139, 250, 0.50);
 
-  --sheen: rgba(255, 255, 255, 0.14);
+  --sheen: rgba(255, 255, 255, 0.16);
 }

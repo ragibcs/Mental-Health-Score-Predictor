@@ -26,12 +26,12 @@ function getSmoothCurvePath(points) {
   return d;
 }
 
-export default function ScoreTrend({ history = [], isLoading = false }) {
+export default function ScoreTrend({ history = [], isLoading = false, className = '' }) {
   const [activePoint, setActivePoint] = useState(null);
 
   if (isLoading) {
     return (
-      <div className="card score-trend-card">
+      <div className={`card score-trend-card ${className}`.trim()}>
         <Skeleton width="40%" height="1.5rem" />
         <div style={{ margin: '1.5rem 0' }}>
           <Skeleton width="100%" height="170px" />
@@ -47,7 +47,7 @@ export default function ScoreTrend({ history = [], isLoading = false }) {
 
   if (sortedHistory.length < 2) {
     return (
-      <div className="card score-trend-card">
+      <div className={`card score-trend-card ${className}`.trim()}>
         <div className="card-header-flex">
           <div>
             <span className="eyebrow">Your Journey</span>
@@ -114,7 +114,7 @@ export default function ScoreTrend({ history = [], isLoading = false }) {
   const diff = lastScore - firstScore;
 
   return (
-    <div className="card score-trend-card">
+    <div className={`card score-trend-card ${className}`.trim()}>
       <div className="card-header-flex">
         <div>
           <span className="eyebrow">Your Rhythm Over Time</span>

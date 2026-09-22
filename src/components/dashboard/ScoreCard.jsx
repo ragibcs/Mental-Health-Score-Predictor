@@ -5,12 +5,12 @@ import Button from '../ui/Button';
 import Skeleton from '../ui/Skeleton';
 import { formatDate, getScoreCategory } from '../../utils/formatters';
 
-export default function ScoreCard({ score, date, count = 0, isLoading = false }) {
+export default function ScoreCard({ score, date, count = 0, isLoading = false, className = '' }) {
   const navigate = useNavigate();
 
   if (isLoading) {
     return (
-      <div className="card score-summary-card">
+      <div className={`card score-summary-card ${className}`.trim()}>
         <Skeleton width="50%" height="1.5rem" />
         <div style={{ margin: '1.5rem 0', display: 'flex', justifyContent: 'center' }}>
           <Skeleton width="130px" height="130px" borderRadius="50%" />
@@ -23,7 +23,7 @@ export default function ScoreCard({ score, date, count = 0, isLoading = false })
   // Friendly Empty State with SVG illustration
   if (!score && count === 0) {
     return (
-      <div className="card score-summary-card empty-state">
+      <div className={`card score-summary-card empty-state ${className}`.trim()}>
         <div className="calm-empty-illustration">
           <svg width="120" height="100" viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="60" cy="50" r="42" fill="var(--primary-soft)" />
@@ -57,7 +57,7 @@ export default function ScoreCard({ score, date, count = 0, isLoading = false })
   const strokeOffset = circumference - (circumference * percentage) / 100;
 
   return (
-    <div className="card score-summary-card">
+    <div className={`card score-summary-card ${className}`.trim()}>
       <div className="card-header-flex">
         <div>
           <span className="eyebrow">Latest Check-in</span>

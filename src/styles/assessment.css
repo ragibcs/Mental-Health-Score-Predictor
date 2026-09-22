@@ -188,8 +188,8 @@
 .pill-selection-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-3);
-  margin-top: var(--space-1);
+  gap: var(--space-4);
+  margin-top: var(--space-2);
 }
 
 .choice-pill-btn {
@@ -231,9 +231,9 @@
 /* ================= Platform Selection Grid ================= */
 .platform-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(158px, 1fr));
   gap: var(--space-3);
-  margin-top: var(--space-2);
+  margin-top: var(--space-3);
 }
 
 .platform-pill-btn {
@@ -370,9 +370,9 @@
   position: absolute;
   top: 10px;
   bottom: 10px;
-  background-color: rgba(143, 184, 168, 0.22);
+  background-color: color-mix(in srgb, var(--accent-sage) 20%, transparent);
   border: 1.5px dashed var(--accent-sage);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   pointer-events: none;
   z-index: 1;
 }
@@ -477,9 +477,9 @@
 /* ================= Stress Level 4 Pill Buttons ================= */
 .stress-pills-row {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-3);
-  margin-top: var(--space-2);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-4);
 }
 
 .stress-pill-btn {
@@ -487,10 +487,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  min-height: 72px;
-  padding: var(--space-3) var(--space-2);
-  border-radius: var(--radius-md);
+  gap: 6px;
+  min-height: 92px;
+  padding: var(--space-4) var(--space-3);
+  border-radius: var(--radius-lg);
   border: 2px solid var(--border);
   background-color: var(--surface-subtle);
   cursor: pointer;
@@ -521,7 +521,7 @@
   background-color: var(--good-bg);
   border-color: var(--good);
   border-width: 2.5px;
-  box-shadow: 0 0 0 3px rgba(95, 163, 127, 0.2);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--good) 24%, transparent);
 }
 .stress-pill-btn.stress-low.selected .stress-pill-title {
   color: var(--good-text);
@@ -541,7 +541,7 @@
   background-color: var(--moderate-bg);
   border-color: var(--moderate);
   border-width: 2.5px;
-  box-shadow: 0 0 0 3px rgba(224, 164, 88, 0.2);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--moderate) 24%, transparent);
 }
 .stress-pill-btn.stress-high.selected .stress-pill-title {
   color: var(--moderate-text);
@@ -551,7 +551,7 @@
   background-color: var(--needs-attention-bg);
   border-color: var(--needs-attention);
   border-width: 2.5px;
-  box-shadow: 0 0 0 3px rgba(217, 139, 115, 0.2);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--needs-attention) 24%, transparent);
 }
 .stress-pill-btn.stress-very-high.selected .stress-pill-title {
   color: var(--needs-attention-text);
