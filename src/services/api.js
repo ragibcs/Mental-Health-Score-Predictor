@@ -2,6 +2,23 @@
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:2200';
 
+// Vite inlines VITE_API_BASE_URL at build time, so a production bundle built
+// without it silently falls back to localhost and every request fails with a
+// confusing network error. Surface that once, loudly, in the console.
+if (!import.meta.env.VITE_API_BASE_URL) {
+  if (import.meta.env.PROD) {
+    console.error(
+      '[MindPulse] VITE_API_BASE_URL was not set at build time — requests are ' +
+        'being sent to ' + API_BASE_URL + '. Set it to your API URL and redeploy.'
+    );
+  } else {
+    console.warn(
+      `[MindPulse] VITE_API_BASE_URL not set; defaulting to ${API_BASE_URL}. ` +
+        'Copy .env.example to .env to configure it.'
+    );
+  }
+}
+
 function getAuthHeader() {
   const token = localStorage.getItem('mh_auth_token');
   if (token) {

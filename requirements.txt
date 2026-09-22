@@ -1,6 +1,27 @@
+# ---------------------------------------------------------------------------
+# MindPulse backend dependencies
+#
+# main.py imports these directly:
+#   fastapi       -> FastAPI, HTTPException, Depends, Header, status, CORSMiddleware
+#   uvicorn       -> ASGI server (start command in README / render.yaml)
+#   pydantic      -> BaseModel, Field; [email] extra provides EmailStr
+#   joblib        -> loads Mental_Health_Model.pkl
+#   pandas        -> builds the single-row inference DataFrame
+#   scikit-learn  -> the estimator inside the pickle
+#   PyJWT         -> `import jwt`
+#   argon2-cffi   -> argon2.PasswordHasher for password hashing
+# ---------------------------------------------------------------------------
+
 fastapi
-uvicorn
-pydantic
+uvicorn[standard]
+pydantic[email]
 joblib
 pandas
-scikit-learn
+
+# Pinned deliberately: Mental_Health_Model.pkl was pickled with scikit-learn
+# 1.6.1. Loading it under a different major/minor can raise or silently warn
+# (InconsistentVersionWarning), so keep this capped until the model is retrained.
+scikit-learn==1.6.1
+
+PyJWT
+argon2-cffi

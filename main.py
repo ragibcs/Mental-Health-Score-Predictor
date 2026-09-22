@@ -31,9 +31,30 @@ app = FastAPI(
 )
 
 # CORS configuration
+#
+# Origins are env-driven so production does not have to ship a wildcard. The
+# default covers local dev; in production set ALLOWED_ORIGINS to a comma
+# separated list, e.g. ALLOWED_ORIGINS=https://mindpulse.vercel.app
+#
+# Note: "*" is intentionally NOT used here. allow_credentials=True combined
+# with a wildcard origin is rejected by browsers, and Starlette's fallback
+# (echoing whatever Origin the caller sent) would let any site call the API.
+DEFAULT_ALLOWED_ORIGINS = "http://localhost:5173,http://127.0.0.1:5173,http://localhost:3000"
+
+_configured_origins = [
+    origin.strip()
+    for origin in os.getenv("ALLOWED_ORIGINS", "").split(",")
+    if origin.strip()
+]
+# Fall back to the local-dev defaults when the variable is unset *or* blank,
+# so an empty value cannot silently block every browser request.
+ALLOWED_ORIGINS = _configured_origins or [
+    origin.strip() for origin in DEFAULT_ALLOWED_ORIGINS.split(",") if origin.strip()
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:3000", "*"],
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
