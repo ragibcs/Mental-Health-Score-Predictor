@@ -228,7 +228,7 @@ export default function Dashboard() {
                 <span
                   className="calm-category-badge"
                   style={{
-                    backgroundColor: '#FFFFFF',
+                    backgroundColor: 'var(--surface-elevated)',
                     borderColor: mCat.border,
                     color: mCat.text,
                   }}

@@ -1,4 +1,6 @@
 :root {
+  color-scheme: light;
+
   /* ==========================================================================
      MindPulse Design System: "Calm Ground" Tokens
      A warm, quiet, human sanctuary for student wellbeing
@@ -129,4 +131,189 @@
   --max-width-md: 768px;
   --max-width-lg: 1024px;
   --max-width-xl: 1200px;
+
+  /* ==========================================================================
+     Semantic Surface & Component Tokens
+     Every component reads these instead of literal colors, so the whole UI
+     can be re-themed (light / dark) from one place.
+     ========================================================================== */
+
+  /* Text that sits on a filled brand/status surface stays light in both themes */
+  --on-primary: #FFFFFF;
+
+  /* Raised / hover surface used when a card or field lifts on interaction */
+  --surface-elevated: #FFFFFF;
+  --surface-hover: #FAF6F2;
+
+  /* Form field interaction states */
+  --field-hover-bg: #FAF6F2;
+  --field-hover-border: #DDD6CB;
+  --field-focus-bg: #FFFFFF;
+  --field-disabled-bg: #F0EAE3;
+  --field-invalid-bg: #FFFDFD;
+
+  /* Button interaction shades */
+  --btn-soft-hover: #DCE8F2;
+  --btn-danger-bg: #FBEBE7;
+  --btn-danger-hover: #F6D9D2;
+
+  /* Range slider hardware */
+  --track-bg: rgba(31, 42, 55, 0.08);
+  --thumb-bg: #FFFFFF;
+  --thumb-shadow: 0 2px 8px rgba(31, 42, 55, 0.15);
+  --thumb-shadow-hover: 0 4px 12px rgba(31, 42, 55, 0.2);
+  --gauge-track: rgba(31, 42, 55, 0.08);
+
+  /* Overlays & inverted surfaces */
+  --scrim: rgba(31, 42, 55, 0.45);
+  --tooltip-bg: #1A2430;
+  --tooltip-text: #F7F4F0;
+
+  /* Frosted navigation chrome */
+  --glass-nav-bg: rgba(250, 247, 242, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.55);
+
+  /* Brand gradient used for accents, hairlines and filled buttons */
+  --brand-gradient: linear-gradient(135deg, #3D6E99 0%, #5B90A8 48%, #6B9E87 100%);
+  --brand-gradient-soft: linear-gradient(135deg, #E8F0F7 0%, #EBF4F0 100%);
+
+  /* Ambient background mesh blooms */
+  --mesh-1: radial-gradient(circle at 18% 12%, rgba(185, 212, 235, 0.55) 0%, rgba(185, 212, 235, 0) 62%);
+  --mesh-2: radial-gradient(circle at 82% 8%, rgba(207, 231, 219, 0.55) 0%, rgba(207, 231, 219, 0) 60%);
+  --mesh-3: radial-gradient(circle at 62% 92%, rgba(243, 229, 212, 0.6) 0%, rgba(243, 229, 212, 0) 60%);
+
+  /* Large decorative blobs used behind hero / auth cards */
+  --blob-a: radial-gradient(circle, rgba(230, 238, 246, 0.8) 0%, rgba(232, 242, 237, 0.6) 100%);
+  --blob-b: radial-gradient(circle, rgba(232, 242, 237, 0.8) 0%, rgba(250, 247, 242, 0.5) 100%);
+  --blob-blend: multiply;
+
+  /* Scrollbar */
+  --scrollbar-track: transparent;
+  --scrollbar-thumb: rgba(61, 110, 153, 0.28);
+  --scrollbar-thumb-hover: rgba(61, 110, 153, 0.45);
+
+  /* Highlight sweep used on primary buttons & gradient text */
+  --sheen: rgba(255, 255, 255, 0.28);
+}
+
+/* ==========================================================================
+   Dark Theme — "Calm Night"
+   A deep, warm-ink evening companion to Calm Ground. Never pure black, and
+   zero alarmist reds, so the sanctuary feel holds after sunset.
+   ========================================================================== */
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  /* Canvas Tokens */
+  --bg-base: #12171E;
+  --background: #12171E;
+  --bg-surface: #1A2129;
+  --surface: #1A2129;
+  --bg-recessed: #212932;
+  --surface-subtle: #212932;
+  --surface-muted: #273040;
+
+  /* Text & Ink Tokens */
+  --text-ink: #F1EFEA;
+  --text-primary: #F1EFEA;
+  --text-body: #C2CBD6;
+  --text-secondary: #C2CBD6;
+  --text-muted: #94A2B1;
+  --text-subtle: #6E7C8B;
+  --text-inverse: #12171E;
+
+  /* Brand Tokens */
+  --primary: #7FB2DE;
+  --primary-hover: #9AC5EA;
+  --primary-active: #6EA0CC;
+  --primary-soft: #1E2E3D;
+  --primary-subtle: rgba(127, 178, 222, 0.12);
+  --primary-glow: rgba(127, 178, 222, 0.26);
+
+  --accent-sage: #7FBF9F;
+  --accent-sage-hover: #96D0B3;
+  --accent-sage-soft: #1B2A25;
+  --sage-soft: #1B2A25;
+  --accent-sage-subtle: rgba(127, 191, 159, 0.16);
+
+  /* Muted wellbeing status scales for dark surfaces */
+  --status-good: #6FBF92;
+  --good: #6FBF92;
+  --good-bg: #15241D;
+  --good-border: #2E4E3D;
+  --good-text: #A6E0C2;
+
+  --status-mod: #DFA45C;
+  --moderate: #DFA45C;
+  --moderate-bg: #2A2116;
+  --moderate-border: #4C3B21;
+  --moderate-text: #F0CD9A;
+
+  --status-needs: #E08A70;
+  --needs-attention: #E08A70;
+  --needs-attention-bg: #2B1E1A;
+  --needs-attention-border: #4C3129;
+  --needs-attention-text: #F3C0AE;
+
+  /* Borders & Focus */
+  --border-soft: #2C3540;
+  --border: #2C3540;
+  --border-subtle: rgba(241, 239, 234, 0.07);
+  --border-strong: rgba(241, 239, 234, 0.18);
+  --focus-ring: rgba(127, 178, 222, 0.4);
+
+  /* Elevation reads as depth, not light, on dark surfaces */
+  --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.35);
+  --shadow-card: 0 8px 28px -6px rgba(0, 0, 0, 0.55), 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-hover: 0 16px 40px -8px rgba(0, 0, 0, 0.62), 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-modal: 0 28px 64px -12px rgba(0, 0, 0, 0.7), 0 6px 20px rgba(0, 0, 0, 0.45);
+  --shadow-diffuse: 0 6px 28px rgba(0, 0, 0, 0.4);
+
+  /* Semantic Surface & Component Tokens */
+  --on-primary: #0E141A;
+
+  --surface-elevated: #222B35;
+  --surface-hover: #27313C;
+
+  --field-hover-bg: #27313C;
+  --field-hover-border: #3A4551;
+  --field-focus-bg: #222B35;
+  --field-disabled-bg: #1B222A;
+  --field-invalid-bg: #241A18;
+
+  --btn-soft-hover: #25384A;
+  --btn-danger-bg: #2E201C;
+  --btn-danger-hover: #3A2723;
+
+  --track-bg: rgba(241, 239, 234, 0.14);
+  --thumb-bg: #1A2129;
+  --thumb-shadow: 0 2px 10px rgba(0, 0, 0, 0.55);
+  --thumb-shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.6);
+  --gauge-track: rgba(241, 239, 234, 0.1);
+
+  --scrim: rgba(6, 9, 13, 0.68);
+  --tooltip-bg: #EDF1F5;
+  --tooltip-text: #14191F;
+
+  --glass-nav-bg: rgba(18, 23, 30, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.08);
+
+  --brand-gradient: linear-gradient(135deg, #5B90C4 0%, #6FA9BE 48%, #7FBF9F 100%);
+  --brand-gradient-soft: linear-gradient(135deg, #1E2E3D 0%, #1B2A25 100%);
+
+  --mesh-1: radial-gradient(circle at 18% 12%, rgba(61, 110, 153, 0.34) 0%, rgba(61, 110, 153, 0) 60%);
+  --mesh-2: radial-gradient(circle at 82% 8%, rgba(107, 158, 135, 0.28) 0%, rgba(107, 158, 135, 0) 58%);
+  --mesh-3: radial-gradient(circle at 62% 92%, rgba(201, 134, 56, 0.16) 0%, rgba(201, 134, 56, 0) 58%);
+
+  --blob-a: radial-gradient(circle, rgba(61, 110, 153, 0.5) 0%, rgba(107, 158, 135, 0.3) 100%);
+  --blob-b: radial-gradient(circle, rgba(107, 158, 135, 0.42) 0%, rgba(18, 23, 30, 0.2) 100%);
+  /* Additive blending keeps the blooms glowing instead of muddying to black */
+  --blob-blend: screen;
+
+  --scrollbar-track: transparent;
+  --scrollbar-thumb: rgba(127, 178, 222, 0.3);
+  --scrollbar-thumb-hover: rgba(127, 178, 222, 0.48);
+
+  --sheen: rgba(255, 255, 255, 0.14);
 }

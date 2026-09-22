@@ -9,16 +9,23 @@ import {
   LayoutDashboard,
   History,
   PlusCircle,
-  ChevronDown
+  ChevronDown,
+  Sun,
+  Moon
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { useTheme } from '../../context/ThemeContext';
 import Button from '../ui/Button';
 
 export default function Navbar() {
   const { user, isAuthenticated, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const navigate = useNavigate();
+
+  const isDark = theme === 'dark';
+  const themeLabel = isDark ? 'Switch to light theme' : 'Switch to dark theme';
 
   const handleLogout = () => {
     logout();
@@ -38,10 +45,10 @@ export default function Navbar() {
         {/* Brand Logo */}
         <Link to="/" className="navbar-brand" onClick={closeMenus}>
           <div className="navbar-logo-icon">
-            <Activity size={22} color="#ffffff" />
+            <Activity size={22} />
           </div>
           <span className="navbar-brand-text">
-            Mind<span className="text-primary">Pulse</span>
+            Mind<span className="text-gradient">Pulse</span>
           </span>
         </Link>
 
@@ -78,116 +85,129 @@ export default function Navbar() {
           )}
         </nav>
 
-        {/* Desktop User Actions */}
-        <div className="navbar-actions desktop-only">
-          {isAuthenticated ? (
-            <div className="user-dropdown-container">
-              <button
-                type="button"
-                className="user-profile-btn"
-                onClick={() => setUserDropdownOpen((prev) => !prev)}
-                aria-expanded={userDropdownOpen}
-                aria-haspopup="true"
-              >
-                <div className="user-avatar-sm">
-                  {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
-                </div>
-                <span className="user-name-text">{user?.name || 'User'}</span>
-                <ChevronDown size={14} className="text-muted" />
-              </button>
-
-              {userDropdownOpen && (
-                <>
-                  <div
-                    className="dropdown-overlay"
-                    onClick={() => setUserDropdownOpen(false)}
-                  />
-                  <div className="user-dropdown-menu" role="menu">
-                    <div className="dropdown-user-header">
-                      <p className="dropdown-user-name">{user?.name}</p>
-                      <p className="dropdown-user-email">{user?.email}</p>
-                    </div>
-                    <div className="dropdown-divider" />
-                    <Link
-                      to="/dashboard"
-                      className="dropdown-item"
-                      onClick={closeMenus}
-                      role="menuitem"
-                    >
-                      <LayoutDashboard size={16} />
-                      <span>Dashboard</span>
-                    </Link>
-                    <Link
-                      to="/assessment"
-                      className="dropdown-item"
-                      onClick={closeMenus}
-                      role="menuitem"
-                    >
-                      <PlusCircle size={16} />
-                      <span>New Assessment</span>
-                    </Link>
-                    <Link
-                      to="/history"
-                      className="dropdown-item"
-                      onClick={closeMenus}
-                      role="menuitem"
-                    >
-                      <History size={16} />
-                      <span>History</span>
-                    </Link>
-                    <Link
-                      to="/profile"
-                      className="dropdown-item"
-                      onClick={closeMenus}
-                      role="menuitem"
-                    >
-                      <User size={16} />
-                      <span>Profile Settings</span>
-                    </Link>
-                    <div className="dropdown-divider" />
-                    <button
-                      type="button"
-                      className="dropdown-item text-danger"
-                      onClick={handleLogout}
-                      role="menuitem"
-                    >
-                      <LogOut size={16} />
-                      <span>Log out</span>
-                    </button>
-                  </div>
-                </>
-              )}
-            </div>
-          ) : (
-            <div className="auth-buttons-group">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => navigate('/login')}
-              >
-                Log In
-              </Button>
-              <Button
-                variant="primary"
-                size="sm"
-                onClick={() => navigate('/register')}
-              >
-                Get Started
-              </Button>
-            </div>
-          )}
-        </div>
-
-        {/* Mobile Hamburger Toggle */}
-        <div className="mobile-only">
+        {/* Right Cluster: Theme Toggle + User Actions + Mobile Menu */}
+        <div className="navbar-right-cluster">
           <button
             type="button"
-            className="hamburger-btn"
-            onClick={() => setMobileMenuOpen((prev) => !prev)}
-            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+            className="theme-toggle"
+            onClick={toggleTheme}
+            aria-label={themeLabel}
+            title={themeLabel}
           >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isDark ? <Sun size={18} /> : <Moon size={18} />}
           </button>
+
+          {/* Desktop User Actions */}
+          <div className="navbar-actions desktop-only">
+            {isAuthenticated ? (
+              <div className="user-dropdown-container">
+                <button
+                  type="button"
+                  className="user-profile-btn"
+                  onClick={() => setUserDropdownOpen((prev) => !prev)}
+                  aria-expanded={userDropdownOpen}
+                  aria-haspopup="true"
+                >
+                  <div className="user-avatar-sm">
+                    {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                  </div>
+                  <span className="user-name-text">{user?.name || 'User'}</span>
+                  <ChevronDown size={14} className="text-muted" />
+                </button>
+
+                {userDropdownOpen && (
+                  <>
+                    <div
+                      className="dropdown-overlay"
+                      onClick={() => setUserDropdownOpen(false)}
+                    />
+                    <div className="user-dropdown-menu" role="menu">
+                      <div className="dropdown-user-header">
+                        <p className="dropdown-user-name">{user?.name}</p>
+                        <p className="dropdown-user-email">{user?.email}</p>
+                      </div>
+                      <div className="dropdown-divider" />
+                      <Link
+                        to="/dashboard"
+                        className="dropdown-item"
+                        onClick={closeMenus}
+                        role="menuitem"
+                      >
+                        <LayoutDashboard size={16} />
+                        <span>Dashboard</span>
+                      </Link>
+                      <Link
+                        to="/assessment"
+                        className="dropdown-item"
+                        onClick={closeMenus}
+                        role="menuitem"
+                      >
+                        <PlusCircle size={16} />
+                        <span>New Assessment</span>
+                      </Link>
+                      <Link
+                        to="/history"
+                        className="dropdown-item"
+                        onClick={closeMenus}
+                        role="menuitem"
+                      >
+                        <History size={16} />
+                        <span>History</span>
+                      </Link>
+                      <Link
+                        to="/profile"
+                        className="dropdown-item"
+                        onClick={closeMenus}
+                        role="menuitem"
+                      >
+                        <User size={16} />
+                        <span>Profile Settings</span>
+                      </Link>
+                      <div className="dropdown-divider" />
+                      <button
+                        type="button"
+                        className="dropdown-item text-danger"
+                        onClick={handleLogout}
+                        role="menuitem"
+                      >
+                        <LogOut size={16} />
+                        <span>Log out</span>
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+            ) : (
+              <div className="auth-buttons-group">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => navigate('/login')}
+                >
+                  Log In
+                </Button>
+                <Button
+                  variant="primary"
+                  size="sm"
+                  onClick={() => navigate('/register')}
+                >
+                  Get Started
+                </Button>
+              </div>
+            )}
+          </div>
+
+          {/* Mobile Hamburger Toggle */}
+          <div className="mobile-only">
+            <button
+              type="button"
+              className="hamburger-btn"
+              onClick={() => setMobileMenuOpen((prev) => !prev)}
+              aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+            >
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -246,6 +266,17 @@ export default function Navbar() {
                 </Button>
               </div>
             )}
+
+            {/* Theme control, labelled on mobile where the icon alone is ambiguous */}
+            <div className="mobile-nav-divider" />
+            <button
+              type="button"
+              className="mobile-nav-link mobile-theme-row"
+              onClick={toggleTheme}
+            >
+              {isDark ? <Sun size={18} /> : <Moon size={18} />}
+              <span>{isDark ? 'Light theme' : 'Dark theme'}</span>
+            </button>
           </nav>
         </div>
       )}

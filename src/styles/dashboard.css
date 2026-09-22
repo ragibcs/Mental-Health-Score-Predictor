@@ -228,7 +228,7 @@
 
 .gauge-bg {
   fill: none;
-  stroke: rgba(31, 42, 55, 0.08);
+  stroke: var(--gauge-track);
 }
 
 .gauge-fill {
@@ -323,8 +323,8 @@
 .chart-tooltip {
   position: absolute;
   transform: translate(-50%, -100%);
-  background-color: var(--text-primary);
-  color: #FFFFFF;
+  background-color: var(--tooltip-bg);
+  color: var(--tooltip-text);
   padding: 0.375rem 0.75rem;
   border-radius: var(--radius-md);
   font-size: 0.8125rem;
@@ -421,7 +421,7 @@
 }
 
 .recent-checkin-card:hover {
-  background-color: #FFFFFF;
+  background-color: var(--surface-elevated);
   border-color: var(--border-strong);
   box-shadow: var(--shadow-sm);
   transform: translateY(-2px);

@@ -135,7 +135,7 @@
 .step-dot-item.active .step-dot-pill {
   background-color: var(--primary);
   border-color: var(--primary);
-  color: #FFFFFF;
+  color: var(--on-primary);
   box-shadow: 0 0 0 4px var(--primary-glow);
 }
 
@@ -147,7 +147,7 @@
 .step-dot-item.completed .step-dot-pill {
   background-color: var(--good);
   border-color: var(--good);
-  color: #FFFFFF;
+  color: var(--on-primary);
 }
 
 .step-dot-item.completed .step-dot-label {
@@ -255,7 +255,7 @@
 }
 
 .platform-pill-btn:hover {
-  background-color: #FFFFFF;
+  background-color: var(--surface-elevated);
   border-color: var(--primary);
   color: var(--primary);
 }
@@ -294,7 +294,7 @@
 
 .calm-slider-container:focus-within {
   border-color: var(--primary);
-  background-color: #FFFFFF;
+  background-color: var(--surface-elevated);
   box-shadow: var(--shadow-sm);
 }
 
@@ -394,7 +394,7 @@
 .calm-range-input::-webkit-slider-runnable-track {
   width: 100%;
   height: 8px;
-  background-color: rgba(31, 42, 55, 0.08);
+  background-color: var(--track-bg);
   border-radius: var(--radius-full);
   border: none;
 }
@@ -406,9 +406,9 @@
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background-color: #FFFFFF;
+  background-color: var(--thumb-bg);
   border: 3px solid var(--primary);
-  box-shadow: 0 2px 8px rgba(31, 42, 55, 0.15);
+  box-shadow: var(--thumb-shadow);
   margin-top: -9px; /* Centers 26px thumb on 8px track */
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
@@ -416,7 +416,7 @@
 
 .calm-range-input::-webkit-slider-thumb:hover {
   transform: scale(1.15);
-  box-shadow: 0 4px 12px rgba(31, 42, 55, 0.2), 0 0 0 4px var(--primary-glow);
+  box-shadow: var(--thumb-shadow-hover), 0 0 0 4px var(--primary-glow);
 }
 
 .calm-range-input::-webkit-slider-thumb:active {
@@ -428,7 +428,7 @@
 .calm-range-input::-moz-range-track {
   width: 100%;
   height: 8px;
-  background-color: rgba(31, 42, 55, 0.08);
+  background-color: var(--track-bg);
   border-radius: var(--radius-full);
   border: none;
 }
@@ -437,16 +437,16 @@
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background-color: #FFFFFF;
+  background-color: var(--thumb-bg);
   border: 3px solid var(--primary);
-  box-shadow: 0 2px 8px rgba(31, 42, 55, 0.15);
+  box-shadow: var(--thumb-shadow);
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .calm-range-input::-moz-range-thumb:hover {
   transform: scale(1.15);
-  box-shadow: 0 4px 12px rgba(31, 42, 55, 0.2), 0 0 0 4px var(--primary-glow);
+  box-shadow: var(--thumb-shadow-hover), 0 0 0 4px var(--primary-glow);
 }
 
 .calm-range-input:focus-visible {
@@ -513,7 +513,7 @@
 
 .stress-pill-btn:hover {
   border-color: var(--border-strong);
-  background-color: #FFFFFF;
+  background-color: var(--surface-elevated);
 }
 
 /* Stress Level Selected Variants (Calm, non-alarming) */

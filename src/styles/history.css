@@ -84,7 +84,7 @@
 }
 
 .search-input:focus {
-  background-color: #FFFFFF;
+  background-color: var(--field-focus-bg);
   border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(79, 124, 172, 0.15);
 }

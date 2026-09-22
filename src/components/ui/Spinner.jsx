@@ -18,7 +18,8 @@ export default function Spinner({
       style={{
         width: sizeMap[size] || size,
         height: sizeMap[size] || size,
-        borderColor: `${color}33`,
+        // color-mix lets this accept design tokens like 'var(--primary)'
+        borderColor: `color-mix(in srgb, ${color} 22%, transparent)`,
         borderTopColor: color,
       }}
       role="status"

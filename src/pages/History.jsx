@@ -224,7 +224,7 @@ export default function History() {
             <div className="calm-empty-illustration">
               <svg width="100" height="90" viewBox="0 0 100 90" fill="none">
                 <circle cx="50" cy="45" r="38" fill="var(--primary-soft)" />
-                <circle cx="50" cy="45" r="26" fill="#FFFFFF" stroke="var(--accent-sage)" strokeWidth="2" strokeDasharray="4 4" />
+                <circle cx="50" cy="45" r="26" fill="var(--surface-elevated)" stroke="var(--accent-sage)" strokeWidth="2" strokeDasharray="4 4" />
                 <path d="M38 48C38 48 43 54 50 54C57 54 62 48 62 48" stroke="var(--primary)" strokeWidth="2.5" strokeLinecap="round" />
               </svg>
             </div>
@@ -399,7 +399,7 @@ export default function History() {
                 <span
                   className="calm-category-badge"
                   style={{
-                    backgroundColor: '#FFFFFF',
+                    backgroundColor: 'var(--surface-elevated)',
                     borderColor: mCat.border,
                     color: mCat.text,
                   }}

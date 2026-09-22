@@ -36,7 +36,8 @@ export default function StatCard({
           <div
             className="stat-icon-wrapper"
             style={{
-              backgroundColor: `${color}18`,
+              // Tint derives from `color`, which may be a design token
+              backgroundColor: `color-mix(in srgb, ${color} 14%, transparent)`,
               color: color,
             }}
           >

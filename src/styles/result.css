@@ -100,7 +100,7 @@
 
 .gauge-bg {
   fill: none;
-  stroke: rgba(31, 42, 55, 0.07);
+  stroke: var(--gauge-track);
 }
 
 /* Slow Breath Animation (~1.2s cubic-bezier(0.25, 1, 0.5, 1)) */
@@ -327,7 +327,7 @@
 }
 
 .sug-item:hover {
-  background-color: #FFFFFF;
+  background-color: var(--surface-elevated);
   border-color: var(--border-strong);
   box-shadow: var(--shadow-xs);
 }
@@ -412,8 +412,8 @@
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background-color: rgba(31, 42, 55, 0.45);
-  backdrop-filter: blur(4px);
+  background-color: var(--scrim);
+  backdrop-filter: blur(8px);
   z-index: 1000;
   display: flex;
   align-items: center;

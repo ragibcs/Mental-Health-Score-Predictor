@@ -216,7 +216,7 @@ export default function ScoreTrend({ history = [], isLoading = false }) {
                   cx={pt.x}
                   cy={pt.y}
                   r={isHovered ? 6 : 4}
-                  fill="#FFFFFF"
+                  fill="var(--surface-elevated)"
                   stroke={cat.color}
                   strokeWidth={isHovered ? 3 : 2}
                   style={{ cursor: 'pointer', transition: 'all 0.15s ease' }}

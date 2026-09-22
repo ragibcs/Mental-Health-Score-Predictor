@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Sparkles,
@@ -16,12 +16,17 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import Button from '../components/ui/Button';
+import useReveal from '../hooks/useReveal';
 import * as api from '../services/api';
 
 export default function Home() {
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [apiOnline, setApiOnline] = useState(true);
+  const pageRef = useRef(null);
+
+  // Sections fade and rise into place as the visitor scrolls.
+  useReveal(pageRef);
 
   useEffect(() => {
     api.checkApiHealth()
@@ -30,7 +35,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="landing-page">
+    <div className="landing-page" ref={pageRef}>
       {/* ================= HERO SECTION ================= */}
       <section className="hero-section">
         {/* Signature ambient gradient blobs */}
@@ -167,7 +172,7 @@ export default function Home() {
       {/* ================= PILLARS BANNER ================= */}
       <section className="stats-banner-section">
         <div className="stats-banner-container">
-          <div className="stat-banner-item">
+          <div className="stat-banner-item reveal">
             <div className="stat-banner-icon">
               <Compass size={22} />
             </div>
@@ -177,7 +182,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="stat-banner-item">
+          <div className="stat-banner-item reveal">
             <div className="stat-banner-icon">
               <Heart size={22} />
             </div>
@@ -187,7 +192,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="stat-banner-item">
+          <div className="stat-banner-item reveal">
             <div className="stat-banner-icon">
               <Calendar size={22} />
             </div>
@@ -197,7 +202,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="stat-banner-item">
+          <div className="stat-banner-item reveal">
             <div className="stat-banner-icon">
               <ShieldCheck size={22} />
             </div>
@@ -212,7 +217,7 @@ export default function Home() {
       {/* ================= HOW IT WORKS ================= */}
       <section className="how-it-works-section">
         <div className="section-container">
-          <div className="section-header text-center">
+          <div className="section-header text-center reveal">
             <span className="eyebrow">A 3-Step Journey</span>
             <h2 className="section-title">How MindPulse Works</h2>
             <p className="section-subtitle">
@@ -221,7 +226,7 @@ export default function Home() {
           </div>
 
           <div className="steps-grid">
-            <div className="step-card">
+            <div className="step-card reveal">
               <div className="step-icon-box">
                 <Smartphone size={24} />
               </div>
@@ -231,7 +236,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="step-card">
+            <div className="step-card reveal">
               <div className="step-icon-box">
                 <Smile size={24} />
               </div>
@@ -241,7 +246,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="step-card">
+            <div className="step-card reveal">
               <div className="step-icon-box">
                 <Activity size={24} />
               </div>
@@ -257,7 +262,7 @@ export default function Home() {
       {/* ================= KEY VALUE PILLARS ================= */}
       <section className="features-section">
         <div className="section-container">
-          <div className="section-header text-center">
+          <div className="section-header text-center reveal">
             <span className="eyebrow">Designed for Real Life</span>
             <h2 className="section-title">A Calm Look at Everyday Factors</h2>
             <p className="section-subtitle">
@@ -266,7 +271,7 @@ export default function Home() {
           </div>
 
           <div className="features-grid">
-            <div className="feature-card">
+            <div className="feature-card reveal">
               <div className="feature-icon-wrapper">
                 <Smartphone size={22} />
               </div>
@@ -276,7 +281,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="feature-card">
+            <div className="feature-card reveal">
               <div className="feature-icon-wrapper">
                 <Moon size={22} />
               </div>
@@ -286,7 +291,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="feature-card">
+            <div className="feature-card reveal">
               <div className="feature-icon-wrapper">
                 <BookOpen size={22} />
               </div>
@@ -296,7 +301,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="feature-card">
+            <div className="feature-card reveal">
               <div className="feature-icon-wrapper">
                 <Activity size={22} />
               </div>
@@ -312,7 +317,7 @@ export default function Home() {
       {/* ================= FINAL CTA BANNER ================= */}
       <section className="cta-banner-section">
         <div className="cta-container">
-          <div className="cta-card">
+          <div className="cta-card reveal">
             <div className="cta-content">
               <span className="eyebrow">Begin Whenever You Are Ready</span>
               <h2 className="cta-title">Take a quiet moment for yourself</h2>

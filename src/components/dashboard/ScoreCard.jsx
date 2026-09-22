@@ -27,7 +27,7 @@ export default function ScoreCard({ score, date, count = 0, isLoading = false })
         <div className="calm-empty-illustration">
           <svg width="120" height="100" viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="60" cy="50" r="42" fill="var(--primary-soft)" />
-            <circle cx="60" cy="50" r="30" fill="#FFFFFF" stroke="var(--accent-sage)" strokeWidth="2" strokeDasharray="4 4" />
+            <circle cx="60" cy="50" r="30" fill="var(--surface-elevated)" stroke="var(--accent-sage)" strokeWidth="2" strokeDasharray="4 4" />
             <path d="M46 54C46 54 52 60 60 60C68 60 74 54 74 54" stroke="var(--primary)" strokeWidth="3" strokeLinecap="round" />
             <circle cx="50" cy="42" r="3" fill="var(--text-primary)" />
             <circle cx="70" cy="42" r="3" fill="var(--text-primary)" />

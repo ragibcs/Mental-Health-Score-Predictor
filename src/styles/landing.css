@@ -26,7 +26,7 @@
   height: 520px;
   top: -140px;
   left: -140px;
-  background: radial-gradient(circle, rgba(230, 238, 246, 0.8) 0%, rgba(232, 242, 237, 0.6) 100%);
+  background: var(--blob-a);
 }
 
 .hero-blob-2 {
@@ -34,7 +34,7 @@
   height: 560px;
   top: 10%;
   right: -160px;
-  background: radial-gradient(circle, rgba(232, 242, 237, 0.8) 0%, rgba(250, 247, 242, 0.5) 100%);
+  background: var(--blob-b);
 }
 
 .hero-container {
@@ -60,8 +60,10 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.35rem 0.875rem;
-  background-color: var(--surface);
-  border: 1px solid var(--border);
+  background-color: var(--glass-nav-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-full);
   font-size: 0.8125rem;
   font-weight: 600;
@@ -81,8 +83,15 @@
 }
 
 .hero-highlight {
-  color: var(--primary);
   font-style: italic;
+  /* Animated brand gradient instead of a flat italic accent */
+  background-image: var(--brand-gradient);
+  background-size: 240% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: gradientPan 9s ease-in-out infinite;
 }
 
 .hero-description {
@@ -125,9 +134,28 @@
 
 /* ================= Hero Visual Preview Card ================= */
 .hero-visual {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* Soft halo behind the preview card, tinted by the brand gradient. Lives on
+   the wrapper so the card's own transform/animation context cannot clip it. */
+.hero-visual::before {
+  content: '';
+  position: absolute;
+  inset: 4% 2%;
+  background: var(--brand-gradient);
+  filter: blur(56px);
+  opacity: 0.2;
+  border-radius: var(--radius-2xl);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-card-preview {
+  z-index: 1;
 }
 
 .hero-card-preview {
@@ -138,14 +166,25 @@
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-lg);
   padding: var(--space-7);
-  transition: all var(--transition-normal);
+  transition: box-shadow var(--transition-normal), border-color var(--transition-normal),
+    transform var(--transition-normal);
   position: relative;
+  animation: floatSlow 7s ease-in-out infinite;
 }
 
+
 .hero-card-preview:hover {
-  transform: translateY(-2px);
+  /* transform is untouched by the float animation (which animates
+     `translate`), so the hover lift composes cleanly with it. */
+  transform: translateY(-4px);
   box-shadow: var(--shadow-xl);
   border-color: var(--border-strong);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-card-preview {
+    animation: none;
+  }
 }
 
 .preview-header {
@@ -284,6 +323,8 @@
 }
 
 .stat-banner-item {
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: center;
   gap: var(--space-4);
@@ -297,15 +338,16 @@
 .stat-banner-item:hover {
   border-color: var(--border-strong);
   box-shadow: var(--shadow-sm);
-  transform: translateY(-2px);
-  background-color: var(--surface);
+  transform: translateY(-3px);
+  background-color: var(--surface-elevated);
 }
 
 .stat-banner-icon {
   width: 40px;
   height: 40px;
   border-radius: var(--radius-full);
-  background-color: var(--primary-soft);
+  background-image: var(--brand-gradient-soft);
+  border: 1px solid var(--border-subtle);
   color: var(--primary);
   display: flex;
   align-items: center;
@@ -386,6 +428,8 @@
 }
 
 .step-card {
+  position: relative;
+  overflow: hidden;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
@@ -396,10 +440,29 @@
   transition: all var(--transition-normal);
 }
 
+/* Gradient hairline that reveals on hover */
+.step-card::before,
+.feature-card::before,
+.stat-banner-item::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: var(--brand-gradient);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.step-card:hover::before,
+.feature-card:hover::before,
+.stat-banner-item:hover::before {
+  opacity: 1;
+}
+
 .step-card:hover {
   border-color: var(--border-strong);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-4px);
 }
 
 .step-icon-box {
@@ -442,6 +505,8 @@
 }
 
 .feature-card {
+  position: relative;
+  overflow: hidden;
   background-color: var(--surface-subtle);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
@@ -452,24 +517,29 @@
 }
 
 .feature-card:hover {
-  background-color: var(--surface);
+  background-color: var(--surface-elevated);
   border-color: var(--border-strong);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-4px);
 }
 
 .feature-icon-wrapper {
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 42px;
   border-radius: var(--radius-full);
-  background-color: var(--surface);
-  border: 1px solid var(--border);
+  background-image: var(--brand-gradient-soft);
+  border: 1px solid var(--border-subtle);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: var(--space-4);
   color: var(--primary);
   box-shadow: var(--shadow-xs);
+  transition: transform var(--transition-normal);
+}
+
+.feature-card:hover .feature-icon-wrapper {
+  transform: scale(1.08) rotate(-3deg);
 }
 
 .feature-title {
@@ -517,7 +587,17 @@
   transform: translateX(-50%);
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(143, 184, 168, 0.18) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Faint gradient wash across the CTA panel */
+.cta-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--brand-gradient);
+  opacity: 0.05;
   pointer-events: none;
 }
 

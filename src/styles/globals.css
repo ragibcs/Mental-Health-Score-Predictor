@@ -30,8 +30,17 @@ body {
   flex-direction: column;
   color: var(--text-secondary);
   background-color: var(--background);
+  background-image: var(--mesh-1), var(--mesh-2), var(--mesh-3);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   overflow-x: hidden;
   position: relative;
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+/* Theming should feel like a slow dimmer switch, not a flash */
+html, body, .app-shell {
+  transition: background-color 300ms ease, color 300ms ease;
 }
 
 #root {
@@ -134,7 +143,7 @@ input, select, textarea {
   border-radius: 50%;
   filter: blur(70px);
   opacity: 0.35;
-  mix-blend-mode: multiply;
+  mix-blend-mode: var(--blob-blend, multiply);
   pointer-events: none;
 }
 
@@ -143,11 +152,11 @@ input, select, textarea {
 }
 
 .ambient-blob-primary {
-  background: radial-gradient(circle, #B9D4EB 0%, rgba(185, 212, 235, 0) 70%);
+  background: radial-gradient(circle, var(--primary) 0%, rgba(185, 212, 235, 0) 70%);
 }
 
 .ambient-blob-cream {
-  background: radial-gradient(circle, #F3E5D4 0%, rgba(243, 229, 212, 0) 70%);
+  background: radial-gradient(circle, var(--moderate) 0%, rgba(243, 229, 212, 0) 70%);
 }
 
 /* Soft Human Category & Eyebrow Label */
@@ -198,9 +207,9 @@ input, select, textarea {
   position: sticky;
   top: 0;
   z-index: 50;
-  background-color: rgba(250, 247, 242, 0.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background-color: var(--glass-nav-bg);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid var(--border);
   transition: all var(--transition-normal);
 }
@@ -267,10 +276,32 @@ input, select, textarea {
   background-color: var(--primary-soft);
 }
 
+/* The logo mark glows softly in dark mode so it does not go flat */
+[data-theme='dark'] .navbar-logo-icon {
+  box-shadow: 0 2px 16px rgba(127, 178, 222, 0.4);
+}
+
+/* Keeps the right side of the navbar on one line: theme toggle, user
+actions and the mobile hamburger all share this cluster. */
+.navbar-right-cluster {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
 .navbar-actions {
   display: flex;
   align-items: center;
   gap: var(--space-3);
+}
+
+/* Labelled theme row inside the mobile drawer */
+.mobile-theme-row {
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  font-size: 1rem;
 }
 
 .auth-buttons-group {
@@ -304,8 +335,8 @@ input, select, textarea {
   width: 1.85rem;
   height: 1.85rem;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--primary) 0%, var(--accent-sage) 100%);
-  color: #FFFFFF;
+  background: var(--brand-gradient);
+  color: var(--on-primary);
   font-weight: 600;
   font-size: 0.8125rem;
   display: flex;
@@ -503,26 +534,51 @@ input, select, textarea {
 
 /* Variants */
 .btn-primary {
+  position: relative;
+  overflow: hidden;
   background-color: var(--primary);
-  color: #FFFFFF;
+  background-image: var(--brand-gradient);
+  color: var(--on-primary);
   box-shadow: 0 4px 14px rgba(61, 110, 153, 0.25);
 }
 
 .btn-primary:hover:not(:disabled) {
-  background-color: var(--primary-hover);
-  box-shadow: 0 6px 20px rgba(61, 110, 153, 0.35);
-  transform: translateY(-1px);
+  box-shadow: 0 8px 26px rgba(61, 110, 153, 0.38);
+  transform: translateY(-2px);
+}
+
+/* Light sweeps across the button face on hover */
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    var(--sheen) 50%,
+    transparent 100%
+  );
+  transform: skewX(-18deg);
+  pointer-events: none;
+}
+
+.btn-primary:hover:not(:disabled)::after {
+  animation: sheenSweep 700ms ease-out;
 }
 
 .btn-secondary {
   background-color: var(--accent-sage);
-  color: #FFFFFF;
+  color: var(--on-primary);
   box-shadow: 0 4px 12px rgba(107, 158, 135, 0.25);
 }
 
 .btn-secondary:hover:not(:disabled) {
   background-color: var(--accent-sage-hover);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(107, 158, 135, 0.34);
 }
 
 .btn-soft {
@@ -531,7 +587,7 @@ input, select, textarea {
 }
 
 .btn-soft:hover:not(:disabled) {
-  background-color: #DCE8F2;
+  background-color: var(--btn-soft-hover);
   color: var(--primary-hover);
 }
 
@@ -560,13 +616,13 @@ input, select, textarea {
 }
 
 .btn-danger {
-  background-color: #FBEBE7;
+  background-color: var(--btn-danger-bg);
   color: var(--needs-attention);
   border: 1px solid rgba(200, 106, 80, 0.2);
 }
 
 .btn-danger:hover:not(:disabled) {
-  background-color: #F6D9D2;
+  background-color: var(--btn-danger-hover);
   transform: translateY(-1px);
 }
 
@@ -643,12 +699,12 @@ input, select, textarea {
 }
 
 .form-input:hover, .form-select:hover {
-  background-color: #FAF6F2;
-  border-color: #DDD6CB;
+  background-color: var(--field-hover-bg);
+  border-color: var(--field-hover-border);
 }
 
 .form-input:focus, .form-select:focus {
-  background-color: #FFFFFF;
+  background-color: var(--field-focus-bg);
   border-color: var(--primary);
   box-shadow: 0 0 0 3px var(--focus-ring);
 }
@@ -660,7 +716,7 @@ input, select, textarea {
 .form-input:disabled, .form-select:disabled {
   opacity: 0.6;
   cursor: not-allowed;
-  background-color: #F0EAE3;
+  background-color: var(--field-disabled-bg);
 }
 
 .form-input.has-icon-left, .form-select.has-icon-left {
@@ -673,7 +729,7 @@ input, select, textarea {
 
 .form-input.is-invalid, .form-select.is-invalid {
   border-color: var(--status-needs);
-  background-color: #FFFDFD;
+  background-color: var(--field-invalid-bg);
 }
 
 .form-input.is-invalid:focus, .form-select.is-invalid:focus {
@@ -770,8 +826,8 @@ input, select, textarea {
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background-color: rgba(31, 42, 55, 0.4);
-  backdrop-filter: blur(8px);
+  background-color: var(--scrim);
+  backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
@@ -1032,8 +1088,320 @@ input, select, textarea {
   to { opacity: 1; transform: translateX(0); }
 }
 
+@keyframes sheenSweep {
+  from { left: -120%; }
+  to { left: 140%; }
+}
+
+@keyframes floatSlow {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -10px; }
+}
+
+@keyframes driftBlob {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33% { transform: translate3d(3%, -4%, 0) scale(1.06); }
+  66% { transform: translate3d(-3%, 3%, 0) scale(0.97); }
+}
+
+@keyframes shimmer {
+  from { background-position: -180% 0; }
+  to { background-position: 180% 0; }
+}
+
+@keyframes gradientPan {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
 .animate-fade-in {
   animation: fadeIn 0.4s ease-out forwards;
+}
+
+/* ==========================================================================
+   MODERN POLISH LAYER
+   Frosted chrome, gradient accents, ambient mesh and reveal-on-scroll motion.
+   Everything here is additive and theme-aware.
+   ========================================================================== */
+
+/* ---- Ambient background mesh on every page shell ---- */
+.hero-section,
+.auth-page,
+.dashboard-page,
+.assessment-page,
+.result-page,
+.history-page,
+.profile-page {
+  background-image: var(--mesh-1), var(--mesh-2), var(--mesh-3);
+  background-repeat: no-repeat;
+  background-color: var(--background);
+}
+
+/* The existing blobs now breathe slowly instead of sitting still */
+.calm-blob,
+.hero-blob-1,
+.hero-blob-2 {
+  animation: driftBlob 22s ease-in-out infinite;
+  will-change: transform;
+}
+
+.hero-blob-2 {
+  animation-duration: 28s;
+  animation-direction: reverse;
+}
+
+/* ---- Gradient text accent ---- */
+.text-gradient {
+  background-image: var(--brand-gradient);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: gradientPan 9s ease-in-out infinite;
+}
+
+/* ---- Reveal on scroll (see src/hooks/useReveal.js) ---- */
+/* Uses the independent `translate` property rather than `transform`, so the
+   hover lifts defined on cards still compose with the entrance motion. */
+.reveal {
+  opacity: 0;
+  translate: 0 18px;
+  transition: opacity 620ms cubic-bezier(0.16, 1, 0.3, 1),
+              translate 620ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* Stagger items inside a grid so they cascade rather than land together */
+.stats-banner-container .reveal:nth-child(2),
+.steps-grid .reveal:nth-child(2),
+.features-grid .reveal:nth-child(2) { transition-delay: 70ms; }
+
+.stats-banner-container .reveal:nth-child(3),
+.steps-grid .reveal:nth-child(3),
+.features-grid .reveal:nth-child(3) { transition-delay: 140ms; }
+
+.stats-banner-container .reveal:nth-child(4),
+.features-grid .reveal:nth-child(4) { transition-delay: 210ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    translate: 0 0;
+    transition: none;
+  }
+}
+
+/* ---- Loading spinner (ui/Spinner + Button loading state) ---- */
+.spinner {
+  display: inline-block;
+  border-style: solid;
+  border-width: 2.5px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+  animation: spin 700ms linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Global reduced-motion stills every animation — a frozen spinner reads as
+     broken, so keep a slow rotation that clearly communicates "working". */
+  .spinner {
+    animation-duration: 1.8s !important;
+  }
+}
+
+/* ---- Skeleton shimmer ---- */
+.skeleton {
+  background-color: var(--surface-subtle);
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--border-subtle) 40%,
+    var(--border) 50%,
+    var(--border-subtle) 60%,
+    transparent 100%
+  );
+  background-size: 220% 100%;
+  animation: shimmer 1.6s linear infinite;
+}
+
+/* ---- Theme-aware custom scrollbar ---- */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+  border-radius: var(--radius-full);
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover);
+}
+
+/* ---- Selection tint ---- */
+::selection {
+  background-color: var(--primary-glow);
+  color: var(--text-ink);
+}
+
+/* ---- Theme toggle button (Navbar) ---- */
+.theme-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  box-shadow: var(--shadow-xs);
+  overflow: hidden;
+  transition: all var(--transition-fast);
+}
+
+.theme-toggle:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+  background-color: var(--primary-soft);
+  transform: translateY(-1px);
+}
+
+.theme-toggle svg {
+  transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1), opacity 250ms ease;
+}
+
+.theme-toggle:active svg {
+  transform: rotate(35deg) scale(0.9);
+}
+
+/* Button text should not be selectable mid-transition */
+.btn {
+  -webkit-tap-highlight-color: transparent;
+}/* ---- Card chrome: gradient hairline + refined elevation ---- */
+.stat-card,
+.score-summary-card,
+.score-trend-card,
+.recent-assessments-card,
+.history-entry-card,
+.history-filter-card,
+.profile-form-card,
+.account-info-card,
+.quiet-signout-card,
+.assessment-card-main,
+.result-card-hero,
+.suggestions-card,
+.observation-card,
+.auth-card {
+  position: relative;
+}
+
+/* Clipping is what makes a full-width hairline follow the rounded top corners.
+   The chart card is deliberately excluded: it draws tooltips and edge dots
+   outside its own box, so it must not clip. */
+.stat-card,
+.score-summary-card,
+.recent-assessments-card,
+.history-entry-card,
+.history-filter-card,
+.profile-form-card,
+.account-info-card,
+.quiet-signout-card,
+.assessment-card-main,
+.result-card-hero,
+.suggestions-card,
+.observation-card,
+.auth-card {
+  overflow: hidden;
+}
+
+/* Hero-level cards keep a permanent, full-bleed brand hairline on the top edge */
+.assessment-card-main::before,
+.result-card-hero::before,
+.auth-card::before,
+.score-summary-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: var(--brand-gradient);
+  opacity: 0.85;
+}
+
+/* Inset accent for the unclipped chart card — reads as intentional, and its
+   rounded ends mean it never needs to be cropped by the card's corners. */
+.score-trend-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: var(--space-8);
+  right: var(--space-8);
+  height: 3px;
+  border-radius: 0 0 var(--radius-full) var(--radius-full);
+  background: var(--brand-gradient);
+  opacity: 0.85;
+}
+
+/* Smaller interactive cards reveal theirs on hover */
+.stat-card::before,
+.recent-assessments-card::before,
+.history-entry-card::before,
+.profile-form-card::before,
+.account-info-card::before,
+.quiet-signout-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: var(--brand-gradient);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+
+.stat-card:hover::before,
+.recent-assessments-card:hover::before,
+.history-entry-card:hover::before,
+.profile-form-card:hover::before,
+.account-info-card:hover::before,
+.quiet-signout-card:hover::before {
+  opacity: 1;
+}
+
+/* Auth card reads as a pane of frosted glass floating over the mesh */
+.auth-card {
+  background-color: var(--glass-nav-bg);
+  backdrop-filter: blur(18px) saturate(150%);
+  -webkit-backdrop-filter: blur(18px) saturate(150%);
+}
+
+/* Lifted elevation on the primary dashboard hero cards */
+.score-summary-card:hover,
+.score-trend-card:hover,
+.result-card-hero:hover,
+.suggestions-card:hover {
+  box-shadow: var(--shadow-hover);
 }
 
 /* Reduced Motion Support */
