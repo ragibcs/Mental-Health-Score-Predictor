@@ -1,0 +1,24 @@
+# Vercel serves ONLY the Vite frontend. The FastAPI backend runs on Render,
+# which clones from Git — so nothing here affects the backend deploy.
+#
+# Why this file exists: Vercel auto-detects a framework from the repo contents.
+# `requirements.txt` listing fastapi, combined with `main.py` defining a
+# top-level `app` (main.py is one of Vercel's recognised Python entrypoint
+# filenames), makes Vercel pick the FastAPI preset and build the backend on
+# Vercel — where it tries to compile scikit-learn from source.
+#
+# Excluding these also trims the upload (the model alone is ~25 MB).
+
+# Python backend
+main.py
+requirements.txt
+.python-version
+
+# Model, data and notebooks (not needed to build the frontend)
+Mental_Health_Model.pkl
+ML_Project.ipynb
+*.csv
+
+# Test / utility scripts
+test_suite.py
+capture_remaining.py
