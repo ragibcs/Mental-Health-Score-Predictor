@@ -52,13 +52,27 @@ ALLOWED_ORIGINS = _configured_origins or [
     origin.strip() for origin in DEFAULT_ALLOWED_ORIGINS.split(",") if origin.strip()
 ]
 
+# Optional regex for origins that cannot be listed exhaustively, such as Vercel
+# preview deployments (https://my-app-git-feature-team.vercel.app). Opt-in only:
+# leave it unset to keep the explicit list above authoritative.
+# Example: ALLOWED_ORIGIN_REGEX=https://.*\.vercel\.app
+ALLOWED_ORIGIN_REGEX = os.getenv("ALLOWED_ORIGIN_REGEX", "").strip() or None
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=ALLOWED_ORIGINS,
+    allow_origin_regex=ALLOWED_ORIGIN_REGEX,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Emitted at startup so the deploy logs state exactly which browser origins
+# this API will accept. A rejected origin returns HTTP 400 with no
+# Access-Control-Allow-Origin header, which is otherwise hard to diagnose.
+print(f"[MindPulse] CORS allowed origins: {', '.join(ALLOWED_ORIGINS)}", flush=True)
+if ALLOWED_ORIGIN_REGEX:
+    print(f"[MindPulse] CORS allowed origin regex: {ALLOWED_ORIGIN_REGEX}", flush=True)
 
 # Database Initialization (SQLite)
 def get_db():
