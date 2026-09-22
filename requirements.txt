@@ -16,12 +16,20 @@ fastapi
 uvicorn[standard]
 pydantic[email]
 joblib
-pandas
 
 # Pinned deliberately: Mental_Health_Model.pkl was pickled with scikit-learn
 # 1.6.1. Loading it under a different major/minor can raise or silently warn
 # (InconsistentVersionWarning), so keep this capped until the model is retrained.
+#
+# 1.6.x supports Python 3.9-3.13 only. The runtime is therefore pinned to 3.12
+# via .python-version; on 3.14 there is no cp314 wheel and pip falls back to
+# compiling the source tarball, which takes 20+ minutes and usually fails.
 scikit-learn==1.6.1
+
+# Also pinned: scikit-learn 1.6.1 predates pandas 3.0, which changed the
+# default string dtype. This model is a ColumnTransformer + OneHotEncoder
+# pipeline that inspects column dtypes, so pandas must stay on the 2.x line.
+pandas==2.2.3
 
 PyJWT
 argon2-cffi
